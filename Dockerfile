@@ -11,7 +11,7 @@ RUN apt-get update && apt-get install -y \
 
 COPY package.json pnpm-lock.yaml ./
 
-RUN pnpm install --frozen-lockfile --ignore-scripts
+RUN pnpm install 
 
 COPY . .
 
