@@ -1,0 +1,29 @@
+services:
+  hydrogen-app:
+    build: .
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+      - /app/node_modules
+      - /app/.pnpm
+    environment:
+      - NODE_ENV=development
+      - HOST=0.0.0.0
+      - PORT=3000
+      - SESSION_SECRET=${SESSION_SECRET}
+      - PUBLIC_STOREFRONT_API_TOKEN=${PUBLIC_STOREFRONT_API_TOKEN}
+      - PUBLIC_STORE_DOMAIN=${PUBLIC_STORE_DOMAIN}
+      - PUBLIC_CUSTOMER_ACCOUNT_API_CLIENT_ID=${PUBLIC_CUSTOMER_ACCOUNT_API_CLIENT_ID}
+      - PUBLIC_CHECKOUT_DOMAIN=${PUBLIC_CHECKOUT_DOMAIN}
+      - SHOP_ID=${SHOP_ID}
+    env_file:
+      - .env
+    stdin_open: true
+    tty: true
+    networks:
+      - hydrogen-network
+
+networks:
+  hydrogen-network:
+    driver: bridge
