@@ -8,15 +8,16 @@
 - `npm run typecheck` - Run TypeScript type checking
 - `npm run codegen` - Generate GraphQL types
 - `npm run preview` - Preview production build
+- No test suite configured - check if tests needed before writing them
 
 ## Code Style & Conventions
 
 - Uses TypeScript with strict mode enabled
-- React Router v7 (NOT Remix) - import from `react-router`, never `react-router-dom`
+- React Router v7 (NOT Remix) - import from `react-router`, NEVER `react-router-dom`
 - PascalCase for components, interfaces, types
 - camelCase for variables, functions, properties
 - Uses Shopify Prettier config for formatting
-- Tailwind CSS for styling
+- Tailwind CSS for styling with Radix UI components
 - ESLint with React, TypeScript, a11y rules
 - File naming: PascalCase for components (.tsx), camelCase for utilities (.ts)
 
