@@ -20,6 +20,14 @@ type H4Props = {
   as: 'h4';
 } & ComponentPropsWithRef<'h4'>;
 
+type H5Props = {
+  as: 'h5';
+} & ComponentPropsWithRef<'h5'>;
+
+type H6Props = {
+  as: 'h6';
+} & ComponentPropsWithRef<'h6'>;
+
 type PProps = {
   as: 'p';
 } & ComponentPropsWithRef<'p'>;
@@ -47,24 +55,62 @@ type RouterNavLinkProps = {
 const typography = cva('transition-colors', {
   variants: {
     variant: {
-      title: 'text-foreground text-xl font-medium leading-normal',
-      lead: 'text-3xl font-light leading-none',
-      large: 'text-xl font-normal leading-loose',
-      base: 'text-base font-normal leading-normal',
-      small: 'text-sm font-normal leading-tight',
-      xsmall: 'text-xs font-normal leading-tight',
+      // Heading variants with proper hierarchy
+      h1: 'text-4xl md:text-5xl lg:text-6xl font-bold leading-tight tracking-tight text-foreground',
+      h2: 'text-3xl md:text-4xl lg:text-5xl font-semibold leading-tight tracking-tight text-foreground',
+      h3: 'text-2xl md:text-3xl lg:text-4xl font-semibold leading-snug tracking-normal text-foreground',
+      h4: 'text-xl md:text-2xl lg:text-3xl font-medium leading-snug tracking-normal text-foreground',
+      h5: 'text-lg md:text-xl lg:text-2xl font-medium leading-normal tracking-normal text-foreground',
+      h6: 'text-base md:text-lg lg:text-xl font-medium leading-normal tracking-normal text-foreground',
 
+      // Content variants
+      lead: 'text-xl md:text-2xl font-light leading-relaxed text-muted-foreground',
+      large: 'text-lg font-normal leading-relaxed text-foreground',
+      base: 'text-base font-normal leading-normal text-foreground',
+      small: 'text-sm font-normal leading-relaxed text-muted-foreground',
+      xsmall: 'text-xs font-normal leading-relaxed text-muted-foreground',
+
+      title: 'text-foreground text-xl font-medium leading-normal',
+
+      // Navigation variant with theme colors
       nav: [
-        'text-cpt-subtext0 text-base font-normal hover:text-foreground leading-none',
-        '[&.active]:text-foreground',
+        'text-muted-foreground text-base font-normal hover:text-foreground leading-none transition-colors',
+        '[&.active]:text-primary [&.active]:font-medium',
       ],
+
+      // Specialized variants
+      caption:
+        'text-xs font-normal leading-tight text-muted-foreground uppercase tracking-wide',
+      code: 'text-sm font-mono leading-relaxed bg-muted px-1.5 py-0.5 rounded text-muted-foreground',
+      blockquote:
+        'text-lg font-normal leading-relaxed italic text-muted-foreground border-l-4 border-primary pl-4',
+    },
+    color: {
+      default: '',
+      primary: 'text-primary',
+      secondary: 'text-secondary-foreground',
+      accent: 'text-accent-foreground',
+      muted: 'text-muted-foreground',
+      destructive: 'text-destructive',
+      // Custom brown/blue theme colors
+      'dark-brown': 'text-dark-brown',
+      'medium-brown': 'text-medium-brown',
+      'golden-tan': 'text-golden-tan',
+      'light-blue': 'text-light-blue',
+    },
+    weight: {
+      light: 'font-light',
+      normal: 'font-normal',
+      medium: 'font-medium',
+      semibold: 'font-semibold',
+      bold: 'font-bold',
     },
     muted: {
       true: 'text-muted-foreground',
       false: '',
     },
     link: {
-      true: 'underline underline-offset-4',
+      true: 'underline underline-offset-4 hover:no-underline',
       false: '',
     },
   },
@@ -79,11 +125,22 @@ const typography = cva('transition-colors', {
       muted: false,
       className: ['text-primary hover:text-primary/80'],
     },
+    {
+      link: true,
+      color: 'primary',
+      className: ['text-primary hover:text-primary/80'],
+    },
+    {
+      link: true,
+      color: 'medium-brown',
+      className: ['text-medium-brown hover:opacity-80'],
+    },
   ],
   defaultVariants: {
     muted: false,
     link: false,
     variant: 'base',
+    color: 'default',
   },
 });
 
@@ -92,6 +149,8 @@ type Props = (
   | H2Props
   | H3Props
   | H4Props
+  | H5Props
+  | H6Props
   | PProps
   | LabelProps
   | SpanProps
@@ -107,6 +166,8 @@ export function Typography(props: Partial<Props>) {
     variant,
     className,
     muted,
+    color,
+    weight,
     link: isLink,
     ...otherProps
   } = props;
@@ -115,6 +176,21 @@ export function Typography(props: Partial<Props>) {
 
   let link = isLink ?? false;
   let Element: ElementType = element ?? 'span';
+
+  // Auto-map heading variants to appropriate elements if not specified
+  if (!element && variant) {
+    const headingMap: Record<string, ElementType> = {
+      h1: 'h1',
+      h2: 'h2',
+      h3: 'h3',
+      h4: 'h4',
+      h5: 'h5',
+      h6: 'h6',
+      blockquote: 'blockquote',
+      code: 'code',
+    };
+    Element = headingMap[variant] || Element;
+  }
 
   if (Element === 'link') {
     Element = Link;
@@ -130,7 +206,9 @@ export function Typography(props: Partial<Props>) {
     <Element
       {...otherProps}
       {...linkProps}
-      className={cn(typography({variant, className, link, muted}))}
+      className={cn(
+        typography({variant, className, link, muted, color, weight}),
+      )}
     />
   );
 }

@@ -1,4 +1,4 @@
-import {Suspense} from 'react';
+import {MouseEvent, MouseEventHandler, Suspense} from 'react';
 import {Await, NavLink, useAsyncValue} from 'react-router';
 import {
   type CartViewPayload,
@@ -7,6 +7,10 @@ import {
 } from '@shopify/hydrogen';
 import type {HeaderQuery, CartApiQueryFragment} from 'storefrontapi.generated';
 import {useAside} from '~/components/Aside';
+import {Typography} from './ui/typography';
+import {CoffeeIcon, SearchIcon, ShoppingCartIcon, UserIcon} from 'lucide-react';
+import {clsx} from 'clsx';
+import {Button} from './ui/button';
 
 interface HeaderProps {
   header: HeaderQuery;
@@ -25,18 +29,80 @@ export function Header({
 }: HeaderProps) {
   const {shop, menu} = header;
   return (
-    <header className="header">
-      <NavLink prefetch="intent" to="/" style={activeLinkStyle} end>
-        <strong>{shop.name}</strong>
+    <header className="px-8 py-4 flex gap-12 bg-white border-b">
+      <NavLink
+        end
+        to="/"
+        prefetch="intent"
+        className="flex items-center hover:text-primary"
+      >
+        <Typography variant="title" as="h1" className="flex gap-2 text-inherit">
+          <CoffeeIcon className="stroke-primary w-7 h-7" />
+          <span> CoffeeHunt</span>
+        </Typography>
       </NavLink>
-      <HeaderMenu
+      <DesktopNavigationMenu
         menu={menu}
-        viewport="desktop"
         primaryDomainUrl={header.shop.primaryDomain.url}
         publicStoreDomain={publicStoreDomain}
       />
-      <HeaderCtas isLoggedIn={isLoggedIn} cart={cart} />
+
+      <nav className="flex gap-2.5 items-center" role="navigation">
+        <SearchToggle />
+        <Button asChild variant="outline" size="icon">
+          <NavLink prefetch="intent" to="/account">
+            <Suspense fallback={<UserIcon className="size-5" />}>
+              <Await resolve={isLoggedIn} errorElement="Sign in">
+                {(isLoggedIn) => (
+                  <>
+                    <UserIcon className="size-5" />
+                    <span className="sr-only">
+                      {isLoggedIn ? 'Account' : 'Sign in'}
+                    </span>
+                  </>
+                )}
+              </Await>
+            </Suspense>
+          </NavLink>
+        </Button>
+        <CartToggle cart={cart} />
+      </nav>
     </header>
+  );
+}
+
+function DesktopNavigationMenu(props: {
+  menu: HeaderProps['header']['menu'];
+  primaryDomainUrl: HeaderProps['header']['shop']['primaryDomain']['url'];
+  publicStoreDomain: HeaderProps['publicStoreDomain'];
+}) {
+  const {menu, publicStoreDomain, primaryDomainUrl} = props;
+  return (
+    <nav className="flex flex-1 gap-4 items-center" role="navigation">
+      {(menu || FALLBACK_HEADER_MENU).items.map((item) => {
+        if (!item.url) return null;
+
+        // if the url is internal, we strip the domain
+        const url =
+          item.url.includes('myshopify.com') ||
+          item.url.includes(publicStoreDomain) ||
+          item.url.includes(primaryDomainUrl)
+            ? new URL(item.url).pathname
+            : item.url;
+
+        return (
+          <Typography
+            variant="nav"
+            end
+            key={item.id}
+            prefetch="intent"
+            to={url}
+          >
+            {item.title}
+          </Typography>
+        );
+      })}
+    </nav>
   );
 }
 
@@ -77,6 +143,7 @@ export function HeaderMenu({
           item.url.includes(primaryDomainUrl)
             ? new URL(item.url).pathname
             : item.url;
+
         return (
           <NavLink
             className="header-menu-item"
@@ -91,26 +158,6 @@ export function HeaderMenu({
           </NavLink>
         );
       })}
-    </nav>
-  );
-}
-
-function HeaderCtas({
-  isLoggedIn,
-  cart,
-}: Pick<HeaderProps, 'isLoggedIn' | 'cart'>) {
-  return (
-    <nav className="header-ctas" role="navigation">
-      <HeaderMenuMobileToggle />
-      <NavLink prefetch="intent" to="/account" style={activeLinkStyle}>
-        <Suspense fallback="Sign in">
-          <Await resolve={isLoggedIn} errorElement="Sign in">
-            {(isLoggedIn) => (isLoggedIn ? 'Account' : 'Sign in')}
-          </Await>
-        </Suspense>
-      </NavLink>
-      <SearchToggle />
-      <CartToggle cart={cart} />
     </nav>
   );
 }
@@ -130,9 +177,16 @@ function HeaderMenuMobileToggle() {
 function SearchToggle() {
   const {open} = useAside();
   return (
-    <button className="reset" onClick={() => open('search')}>
-      Search
-    </button>
+    <Button
+      variant="outline"
+      onClick={() => open('search')}
+      className="w-40 justify-start cursor-pointer"
+    >
+      <SearchIcon />
+      <Typography variant="xsmall" muted className="">
+        Search coffee
+      </Typography>
+    </Button>
   );
 }
 
@@ -140,22 +194,38 @@ function CartBadge({count}: {count: number | null}) {
   const {open} = useAside();
   const {publish, shop, cart, prevCart} = useAnalytics();
 
+  function onClick(e: MouseEvent<HTMLAnchorElement>) {
+    e.preventDefault();
+    open('cart');
+    publish('cart_viewed', {
+      cart,
+      prevCart,
+      shop,
+      url: window.location.href || '',
+    });
+  }
+
   return (
-    <a
-      href="/cart"
-      onClick={(e) => {
-        e.preventDefault();
-        open('cart');
-        publish('cart_viewed', {
-          cart,
-          prevCart,
-          shop,
-          url: window.location.href || '',
-        } as CartViewPayload);
-      }}
-    >
-      Cart {count === null ? <span>&nbsp;</span> : count}
-    </a>
+    <Button asChild variant="outline" size="icon">
+      <a
+        href="/cart"
+        onClick={onClick}
+        title="Shopping Cart"
+        className="block relative"
+      >
+        <ShoppingCartIcon className="size-5" />
+        {count != null && count > 0 && (
+          <span
+            className={clsx(
+              'absolute flex justify-center items-center top-[-8px] right-[-8px]',
+              'bg-primary text-white w-5 h-5 rounded-full text-sm',
+            )}
+          >
+            {count}
+          </span>
+        )}
+      </a>
+    </Button>
   );
 }
 
