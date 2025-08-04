@@ -4,8 +4,12 @@
   --cart-aside-summary-height: 250px;
   --grid-item-width: 355px;
   --header-height: 64px;
-  --color-dark: #000;
-  --color-light: #fff;
+
+  /* Updated color variables to match new theme */
+  --color-dark: #6c3428; /* Dark Brown for text and headers */
+  --color-light: #cee6f3; /* Light Blue for cart sidebar */
+  --color-accent: #ba704f; /* Medium Brown for buttons */
+  --color-badge: #dfa878; /* Golden/Tan for badges */
 }
 
 img {
@@ -34,8 +38,8 @@ img {
 }
 
 aside {
-  background: var(--color-light);
-  box-shadow: 0 0 50px rgba(0, 0, 0, 0.3);
+  background: var(--color-light); /* Light Blue background for cart sidebar */
+  box-shadow: 0 0 50px rgba(108, 52, 40, 0.3); /* Dark Brown shadow */
   height: 100vh;
   width: min(var(--aside-width), 100vw);
   position: fixed;
@@ -165,6 +169,7 @@ button.reset:hover:not(:has(> *)) {
 .header {
   align-items: center;
   background: #fff;
+  border-bottom: 1px solid var(--color-dark); /* Dark Brown border */
   display: flex;
   height: var(--header-height);
   padding: 0 1rem;
@@ -209,7 +214,6 @@ button.reset:hover:not(:has(> *)) {
 .header-ctas > * {
   min-width: fit-content;
 }
-
 
 /*
 * --------------------------------------------------
@@ -266,7 +270,7 @@ button.reset:hover:not(:has(> *)) {
 }
 
 .cart-summary-aside {
-  background: white;
+  background: var(--color-light); /* Light Blue background for cart summary */
   border-top: 1px solid var(--color-dark);
   bottom: 0;
   padding-top: 0.75rem;
@@ -299,7 +303,7 @@ button.reset:hover:not(:has(> *)) {
 }
 
 .predictive-search-form {
-  background: var(--color-light);
+  background: var(--color-light); /* Light Blue background for search */
   position: sticky;
   top: 0;
 }

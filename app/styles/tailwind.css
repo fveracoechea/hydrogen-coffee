@@ -92,134 +92,96 @@
 :root {
   --radius: 0.625rem;
 
-  --background: oklch(1 0 0);
+  /* Light theme with brown/blue palette */
+  --background: oklch(0.98 0.01 45); /* Very light cream */
+  --foreground: oklch(0.32 0.06 30); /* #6C3428 - Dark Brown for text */
 
-  --foreground: oklch(0.145 0 0);
+  --card: oklch(0.985 0.005 45);
+  --card-foreground: oklch(0.32 0.06 30);
 
-  --card: oklch(1 0 0);
+  --popover: oklch(0.985 0.005 45);
+  --popover-foreground: oklch(0.32 0.06 30);
 
-  --card-foreground: oklch(0.145 0 0);
+  --primary: oklch(0.54 0.08 35); /* #BA704F - Medium Brown for buttons */
+  --primary-foreground: oklch(0.98 0.01 45);
 
-  --popover: oklch(1 0 0);
+  --secondary: oklch(0.88 0.04 50); /* #DFA878 - Golden/Tan for badges */
+  --secondary-foreground: oklch(0.32 0.06 30);
 
-  --popover-foreground: oklch(0.145 0 0);
+  --muted: oklch(0.94 0.02 45);
+  --muted-foreground: oklch(0.45 0.04 30);
 
-  --primary: oklch(0.205 0 0);
-
-  --primary-foreground: oklch(0.985 0 0);
-
-  --secondary: oklch(0.97 0 0);
-
-  --secondary-foreground: oklch(0.205 0 0);
-
-  --muted: oklch(0.97 0 0);
-
-  --muted-foreground: oklch(0.556 0 0);
-
-  --accent: oklch(0.97 0 0);
-
-  --accent-foreground: oklch(0.205 0 0);
+  --accent: oklch(0.88 0.04 200); /* #CEE6F3 - Light Blue for cart sidebar */
+  --accent-foreground: oklch(0.32 0.06 30);
 
   --destructive: oklch(0.577 0.245 27.325);
 
-  --border: oklch(0.922 0 0);
+  --border: oklch(0.9 0.02 45);
+  --input: oklch(0.94 0.02 45);
+  --ring: oklch(0.54 0.08 35);
 
-  --input: oklch(0.922 0 0);
+  --chart-1: oklch(0.54 0.08 35); /* Medium Brown */
+  --chart-2: oklch(0.88 0.04 50); /* Golden/Tan */
+  --chart-3: oklch(0.88 0.04 200); /* Light Blue */
+  --chart-4: oklch(0.32 0.06 30); /* Dark Brown */
+  --chart-5: oklch(0.65 0.06 40); /* Lighter Brown variant */
 
-  --ring: oklch(0.708 0 0);
-
-  --chart-1: oklch(0.646 0.222 41.116);
-
-  --chart-2: oklch(0.6 0.118 184.704);
-
-  --chart-3: oklch(0.398 0.07 227.392);
-
-  --chart-4: oklch(0.828 0.189 84.429);
-
-  --chart-5: oklch(0.769 0.188 70.08);
-
-  --sidebar: oklch(0.985 0 0);
-
-  --sidebar-foreground: oklch(0.145 0 0);
-
-  --sidebar-primary: oklch(0.205 0 0);
-
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-
-  --sidebar-accent: oklch(0.97 0 0);
-
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-
-  --sidebar-border: oklch(0.922 0 0);
-
-  --sidebar-ring: oklch(0.708 0 0);
+  --sidebar: oklch(0.88 0.04 200); /* Light Blue for sidebar */
+  --sidebar-foreground: oklch(0.32 0.06 30);
+  --sidebar-primary: oklch(0.54 0.08 35);
+  --sidebar-primary-foreground: oklch(0.98 0.01 45);
+  --sidebar-accent: oklch(0.92 0.03 200);
+  --sidebar-accent-foreground: oklch(0.32 0.06 30);
+  --sidebar-border: oklch(0.82 0.05 200);
+  --sidebar-ring: oklch(0.54 0.08 35);
 }
 
 /*---break---
  */
 
 .dark {
-  --background: oklch(0.145 0 0);
+  /* Dark theme with adjusted brown/blue palette */
+  --background: oklch(0.15 0.02 30);
+  --foreground: oklch(0.88 0.04 50); /* Golden/Tan for dark mode text */
 
-  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.18 0.03 30);
+  --card-foreground: oklch(0.88 0.04 50);
 
-  --card: oklch(0.205 0 0);
+  --popover: oklch(0.18 0.03 30);
+  --popover-foreground: oklch(0.88 0.04 50);
 
-  --card-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.88 0.04 50); /* Golden/Tan becomes primary in dark */
+  --primary-foreground: oklch(0.15 0.02 30);
 
-  --popover: oklch(0.205 0 0);
+  --secondary: oklch(0.25 0.04 35);
+  --secondary-foreground: oklch(0.88 0.04 50);
 
-  --popover-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.22 0.03 35);
+  --muted-foreground: oklch(0.65 0.04 45);
 
-  --primary: oklch(0.922 0 0);
-
-  --primary-foreground: oklch(0.205 0 0);
-
-  --secondary: oklch(0.269 0 0);
-
-  --secondary-foreground: oklch(0.985 0 0);
-
-  --muted: oklch(0.269 0 0);
-
-  --muted-foreground: oklch(0.708 0 0);
-
-  --accent: oklch(0.269 0 0);
-
-  --accent-foreground: oklch(0.985 0 0);
+  --accent: oklch(0.3 0.06 200); /* Darker blue for dark mode accent */
+  --accent-foreground: oklch(0.88 0.04 200);
 
   --destructive: oklch(0.704 0.191 22.216);
 
-  --border: oklch(1 0 0 / 10%);
+  --border: oklch(0.25 0.03 35);
+  --input: oklch(0.22 0.03 35);
+  --ring: oklch(0.88 0.04 50);
 
-  --input: oklch(1 0 0 / 15%);
+  --chart-1: oklch(0.88 0.04 50); /* Golden/Tan */
+  --chart-2: oklch(0.54 0.08 35); /* Medium Brown */
+  --chart-3: oklch(0.6 0.08 200); /* Medium Blue */
+  --chart-4: oklch(0.32 0.06 30); /* Dark Brown */
+  --chart-5: oklch(0.75 0.06 45); /* Light Brown variant */
 
-  --ring: oklch(0.556 0 0);
-
-  --chart-1: oklch(0.488 0.243 264.376);
-
-  --chart-2: oklch(0.696 0.17 162.48);
-
-  --chart-3: oklch(0.769 0.188 70.08);
-
-  --chart-4: oklch(0.627 0.265 303.9);
-
-  --chart-5: oklch(0.645 0.246 16.439);
-
-  --sidebar: oklch(0.205 0 0);
-
-  --sidebar-foreground: oklch(0.985 0 0);
-
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-
-  --sidebar-accent: oklch(0.269 0 0);
-
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-
-  --sidebar-border: oklch(1 0 0 / 10%);
-
-  --sidebar-ring: oklch(0.556 0 0);
+  --sidebar: oklch(0.2 0.04 200); /* Dark blue for sidebar */
+  --sidebar-foreground: oklch(0.88 0.04 200);
+  --sidebar-primary: oklch(0.88 0.04 50);
+  --sidebar-primary-foreground: oklch(0.15 0.02 30);
+  --sidebar-accent: oklch(0.25 0.05 200);
+  --sidebar-accent-foreground: oklch(0.88 0.04 200);
+  --sidebar-border: oklch(0.3 0.06 200);
+  --sidebar-ring: oklch(0.88 0.04 50);
 }
 
 /*---break---
@@ -231,5 +193,51 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+/* Custom utility classes for the brown/blue theme */
+@layer utilities {
+  .text-dark-brown {
+    color: #6c3428;
+  }
+  .text-medium-brown {
+    color: #ba704f;
+  }
+  .text-golden-tan {
+    color: #dfa878;
+  }
+  .text-light-blue {
+    color: #cee6f3;
+  }
+
+  .bg-dark-brown {
+    background-color: #6c3428;
+  }
+  .bg-medium-brown {
+    background-color: #ba704f;
+  }
+  .bg-golden-tan {
+    background-color: #dfa878;
+  }
+  .bg-light-blue {
+    background-color: #cee6f3;
+  }
+
+  .border-dark-brown {
+    border-color: #6c3428;
+  }
+  .border-medium-brown {
+    border-color: #ba704f;
+  }
+  .border-golden-tan {
+    border-color: #dfa878;
+  }
+  .border-light-blue {
+    border-color: #cee6f3;
+  }
+
+  .gradient-cart {
+    background: linear-gradient(135deg, #cee6f3 0%, #dfa878 100%);
   }
 }
