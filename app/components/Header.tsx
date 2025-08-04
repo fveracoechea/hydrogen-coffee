@@ -180,11 +180,11 @@ function SearchToggle() {
     <Button
       variant="outline"
       onClick={() => open('search')}
-      className="w-40 justify-start cursor-pointer"
+      className="justify-start cursor-pointer"
     >
       <SearchIcon />
       <Typography variant="xsmall" muted className="">
-        Search coffee
+        Start your coffee search
       </Typography>
     </Button>
   );
