@@ -1,26 +1,31 @@
 services:
-  hydrogen-app:
-    build: .
+  hydrogen-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
     ports:
-      - "3000:3000"
+      - '3000:3000'
     volumes:
+      # Mount source code for hot reloading
       - .:/app
+      # Preserve node_modules in container
       - /app/node_modules
-      - /app/.pnpm
+      # Mount .env file for environment variables
+      - ./.env:/app/.env:ro
     environment:
       - NODE_ENV=development
       - HOST=0.0.0.0
       - PORT=3000
+      # Shopify environment variables (will be loaded from .env)
       - SESSION_SECRET=${SESSION_SECRET}
       - PUBLIC_STOREFRONT_API_TOKEN=${PUBLIC_STOREFRONT_API_TOKEN}
       - PUBLIC_STORE_DOMAIN=${PUBLIC_STORE_DOMAIN}
       - PUBLIC_CUSTOMER_ACCOUNT_API_CLIENT_ID=${PUBLIC_CUSTOMER_ACCOUNT_API_CLIENT_ID}
       - PUBLIC_CHECKOUT_DOMAIN=${PUBLIC_CHECKOUT_DOMAIN}
       - SHOP_ID=${SHOP_ID}
-    env_file:
-      - .env
     stdin_open: true
     tty: true
+    restart: unless-stopped
     networks:
       - hydrogen-network
 

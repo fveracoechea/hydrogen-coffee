@@ -1,0 +1,30 @@
+FROM node:22-slim
+
+# Install system dependencies needed for mini-oxygen and development
+RUN apt-get update && apt-get install -y \
+    curl \
+    git \
+    && rm -rf /var/lib/apt/lists/*
+
+WORKDIR /app
+
+# Copy package files and npmrc for dependency resolution
+COPY package.json .npmrc ./
+COPY package-lock.json* ./
+
+# Install dependencies
+RUN npm install
+
+# Copy source code (this will be overridden by volume mount in dev)
+COPY . .
+
+# Expose the development port
+EXPOSE 3000
+
+# Set environment variables for development
+ENV NODE_ENV=development
+ENV HOST=0.0.0.0
+ENV PORT=3000
+
+# Start the development server with mini-oxygen
+CMD ["npm", "run", "dev"]
