@@ -1,12 +1,11 @@
-import {Link, useNavigate} from 'react-router';
-import {type MappedProductOptions} from '@shopify/hydrogen';
-import type {
-  Maybe,
-  ProductOptionValueSwatch,
-} from '@shopify/hydrogen/storefront-api-types';
-import {AddToCartButton} from './AddToCartButton';
-import {useAside} from './Aside';
-import type {ProductFragment} from 'storefrontapi.generated';
+import { Link, useNavigate } from 'react-router';
+
+import { type MappedProductOptions } from '@shopify/hydrogen';
+import type { Maybe, ProductOptionValueSwatch } from '@shopify/hydrogen/storefront-api-types';
+import type { ProductFragment } from 'storefrontapi.generated';
+
+import { AddToCartButton } from './AddToCartButton';
+import { useAside } from './Aside';
 
 export function ProductForm({
   productOptions,
@@ -16,10 +15,10 @@ export function ProductForm({
   selectedVariant: ProductFragment['selectedOrFirstAvailableVariant'];
 }) {
   const navigate = useNavigate();
-  const {open} = useAside();
+  const { open } = useAside();
   return (
     <div className="product-form">
-      {productOptions.map((option) => {
+      {productOptions.map(option => {
         // If there is only a single value in the option values, don't display the option
         if (option.optionValues.length === 1) return null;
 
@@ -27,7 +26,7 @@ export function ProductForm({
           <div className="product-options" key={option.name}>
             <h5>{option.name}</h5>
             <div className="product-options-grid">
-              {option.optionValues.map((value) => {
+              {option.optionValues.map(value => {
                 const {
                   name,
                   handle,
@@ -53,9 +52,7 @@ export function ProductForm({
                       replace
                       to={`/products/${handle}?${variantUriQuery}`}
                       style={{
-                        border: selected
-                          ? '1px solid black'
-                          : '1px solid transparent',
+                        border: selected ? '1px solid black' : '1px solid transparent',
                         opacity: available ? 1 : 0.3,
                       }}
                     >
@@ -71,14 +68,10 @@ export function ProductForm({
                   return (
                     <button
                       type="button"
-                      className={`product-options-item${
-                        exists && !selected ? ' link' : ''
-                      }`}
+                      className={`product-options-item${exists && !selected ? ' link' : ''}`}
                       key={option.name + name}
                       style={{
-                        border: selected
-                          ? '1px solid black'
-                          : '1px solid transparent',
+                        border: selected ? '1px solid black' : '1px solid transparent',
                         opacity: available ? 1 : 0.3,
                       }}
                       disabled={!exists}

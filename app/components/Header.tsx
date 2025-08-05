@@ -1,16 +1,15 @@
-import {MouseEvent, MouseEventHandler, Suspense} from 'react';
-import {Await, NavLink, useAsyncValue} from 'react-router';
-import {
-  type CartViewPayload,
-  useAnalytics,
-  useOptimisticCart,
-} from '@shopify/hydrogen';
-import type {HeaderQuery, CartApiQueryFragment} from 'storefrontapi.generated';
-import {useAside} from '~/components/Aside';
-import {Typography} from './ui/typography';
-import {CoffeeIcon, SearchIcon, ShoppingCartIcon, UserIcon} from 'lucide-react';
-import {clsx} from 'clsx';
-import {Button} from './ui/button';
+import { MouseEvent, MouseEventHandler, Suspense } from 'react';
+import { Await, NavLink, useAsyncValue } from 'react-router';
+
+import { type CartViewPayload, useAnalytics, useOptimisticCart } from '@shopify/hydrogen';
+import { clsx } from 'clsx';
+import { CoffeeIcon, SearchIcon, ShoppingCartIcon, UserIcon } from 'lucide-react';
+import type { CartApiQueryFragment, HeaderQuery } from 'storefrontapi.generated';
+
+import { useAside } from '~/components/Aside';
+
+import { Button } from './ui/button';
+import { Typography } from './ui/typography';
 
 interface HeaderProps {
   header: HeaderQuery;
@@ -21,21 +20,11 @@ interface HeaderProps {
 
 type Viewport = 'desktop' | 'mobile';
 
-export function Header({
-  header,
-  isLoggedIn,
-  cart,
-  publicStoreDomain,
-}: HeaderProps) {
-  const {shop, menu} = header;
+export function Header({ header, isLoggedIn, cart, publicStoreDomain }: HeaderProps) {
+  const { shop, menu } = header;
   return (
     <header className="px-8 py-4 flex gap-12 border-b">
-      <NavLink
-        end
-        to="/"
-        prefetch="intent"
-        className="flex items-center hover:text-primary"
-      >
+      <NavLink end to="/" prefetch="intent" className="flex items-center hover:text-primary">
         <Typography variant="title" as="h1" className="flex gap-2 text-inherit">
           <CoffeeIcon className="stroke-primary w-7 h-7" />
           <span> CoffeeHunt</span>
@@ -53,12 +42,10 @@ export function Header({
           <NavLink prefetch="intent" to="/account">
             <Suspense fallback={<UserIcon className="size-5" />}>
               <Await resolve={isLoggedIn} errorElement="Sign in">
-                {(isLoggedIn) => (
+                {isLoggedIn => (
                   <>
                     <UserIcon className="size-5" />
-                    <span className="sr-only">
-                      {isLoggedIn ? 'Account' : 'Sign in'}
-                    </span>
+                    <span className="sr-only">{isLoggedIn ? 'Account' : 'Sign in'}</span>
                   </>
                 )}
               </Await>
@@ -76,10 +63,10 @@ function DesktopNavigationMenu(props: {
   primaryDomainUrl: HeaderProps['header']['shop']['primaryDomain']['url'];
   publicStoreDomain: HeaderProps['publicStoreDomain'];
 }) {
-  const {menu, publicStoreDomain, primaryDomainUrl} = props;
+  const { menu, publicStoreDomain, primaryDomainUrl } = props;
   return (
     <nav className="flex flex-1 gap-4 items-center" role="navigation">
-      {(menu || FALLBACK_HEADER_MENU).items.map((item) => {
+      {(menu || FALLBACK_HEADER_MENU).items.map(item => {
         if (!item.url) return null;
 
         // if the url is internal, we strip the domain
@@ -91,13 +78,7 @@ function DesktopNavigationMenu(props: {
             : item.url;
 
         return (
-          <Typography
-            variant="nav"
-            end
-            key={item.id}
-            prefetch="intent"
-            to={url}
-          >
+          <Typography variant="nav" end key={item.id} prefetch="intent" to={url}>
             {item.title}
           </Typography>
         );
@@ -118,22 +99,16 @@ export function HeaderMenu({
   publicStoreDomain: HeaderProps['publicStoreDomain'];
 }) {
   const className = `header-menu-${viewport}`;
-  const {close} = useAside();
+  const { close } = useAside();
 
   return (
     <nav className={className} role="navigation">
       {viewport === 'mobile' && (
-        <NavLink
-          end
-          onClick={close}
-          prefetch="intent"
-          style={activeLinkStyle}
-          to="/"
-        >
+        <NavLink end onClick={close} prefetch="intent" style={activeLinkStyle} to="/">
           Home
         </NavLink>
       )}
-      {(menu || FALLBACK_HEADER_MENU).items.map((item) => {
+      {(menu || FALLBACK_HEADER_MENU).items.map(item => {
         if (!item.url) return null;
 
         // if the url is internal, we strip the domain
@@ -163,19 +138,16 @@ export function HeaderMenu({
 }
 
 function HeaderMenuMobileToggle() {
-  const {open} = useAside();
+  const { open } = useAside();
   return (
-    <button
-      className="header-menu-mobile-toggle reset"
-      onClick={() => open('mobile')}
-    >
+    <button className="header-menu-mobile-toggle reset" onClick={() => open('mobile')}>
       <h3>☰</h3>
     </button>
   );
 }
 
 function SearchToggle() {
-  const {open} = useAside();
+  const { open } = useAside();
   return (
     <Button
       variant="outline"
@@ -190,9 +162,9 @@ function SearchToggle() {
   );
 }
 
-function CartBadge({count}: {count: number | null}) {
-  const {open} = useAside();
-  const {publish, shop, cart, prevCart} = useAnalytics();
+function CartBadge({ count }: { count: number | null }) {
+  const { open } = useAside();
+  const { publish, shop, cart, prevCart } = useAnalytics();
 
   function onClick(e: MouseEvent<HTMLAnchorElement>) {
     e.preventDefault();
@@ -207,12 +179,7 @@ function CartBadge({count}: {count: number | null}) {
 
   return (
     <Button asChild variant="outline" size="icon">
-      <a
-        href="/cart"
-        onClick={onClick}
-        title="Shopping Cart"
-        className="block relative"
-      >
+      <a href="/cart" onClick={onClick} title="Shopping Cart" className="block relative">
         <ShoppingCartIcon className="size-5" />
         {count != null && count > 0 && (
           <span
@@ -229,7 +196,7 @@ function CartBadge({count}: {count: number | null}) {
   );
 }
 
-function CartToggle({cart}: Pick<HeaderProps, 'cart'>) {
+function CartToggle({ cart }: Pick<HeaderProps, 'cart'>) {
   return (
     <Suspense fallback={<CartBadge count={null} />}>
       <Await resolve={cart}>
@@ -287,13 +254,7 @@ const FALLBACK_HEADER_MENU = {
   ],
 };
 
-function activeLinkStyle({
-  isActive,
-  isPending,
-}: {
-  isActive: boolean;
-  isPending: boolean;
-}) {
+function activeLinkStyle({ isActive, isPending }: { isActive: boolean; isPending: boolean }) {
   return {
     fontWeight: isActive ? 'bold' : undefined,
     color: isPending ? 'grey' : 'black',

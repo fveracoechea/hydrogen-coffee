@@ -1,8 +1,9 @@
-import type {ComponentPropsWithRef, ElementType} from 'react';
-import {Link, type LinkProps, NavLink, type NavLinkProps} from 'react-router';
+import type { ComponentPropsWithRef, ElementType } from 'react';
+import { Link, type LinkProps, NavLink, type NavLinkProps } from 'react-router';
 
-import {cn} from '~/lib/utils';
-import {cva, type VariantProps} from 'class-variance-authority';
+import { type VariantProps, cva } from 'class-variance-authority';
+
+import { cn } from '~/lib/utils';
 
 type H1Props = {
   as: 'h1';
@@ -206,9 +207,7 @@ export function Typography(props: Partial<Props>) {
     <Element
       {...otherProps}
       {...linkProps}
-      className={cn(
-        typography({variant, className, link, muted, color, weight}),
-      )}
+      className={cn(typography({ variant, className, link, muted, color, weight }))}
     />
   );
 }

@@ -1,16 +1,15 @@
-import {Link} from 'react-router';
-import {Image, Money, Pagination} from '@shopify/hydrogen';
-import {urlWithTrackingParams, type RegularSearchReturn} from '~/lib/search';
+import { Link } from 'react-router';
+
+import { Image, Money, Pagination } from '@shopify/hydrogen';
+
+import { type RegularSearchReturn, urlWithTrackingParams } from '~/lib/search';
 
 type SearchItems = RegularSearchReturn['result']['items'];
-type PartialSearchResult<ItemType extends keyof SearchItems> = Pick<
-  SearchItems,
-  ItemType
-> &
+type PartialSearchResult<ItemType extends keyof SearchItems> = Pick<SearchItems, ItemType> &
   Pick<RegularSearchReturn, 'term'>;
 
 type SearchResultsProps = RegularSearchReturn & {
-  children: (args: SearchItems & {term: string}) => React.ReactNode;
+  children: (args: SearchItems & { term: string }) => React.ReactNode;
 };
 
 export function SearchResults({
@@ -22,7 +21,7 @@ export function SearchResults({
     return null;
   }
 
-  return children({...result.items, term});
+  return children({ ...result.items, term });
 }
 
 SearchResults.Articles = SearchResultsArticles;
@@ -30,10 +29,7 @@ SearchResults.Pages = SearchResultsPages;
 SearchResults.Products = SearchResultsProducts;
 SearchResults.Empty = SearchResultsEmpty;
 
-function SearchResultsArticles({
-  term,
-  articles,
-}: PartialSearchResult<'articles'>) {
+function SearchResultsArticles({ term, articles }: PartialSearchResult<'articles'>) {
   if (!articles?.nodes.length) {
     return null;
   }
@@ -42,7 +38,7 @@ function SearchResultsArticles({
     <div className="search-result">
       <h2>Articles</h2>
       <div>
-        {articles?.nodes?.map((article) => {
+        {articles?.nodes?.map(article => {
           const articleUrl = urlWithTrackingParams({
             baseUrl: `/blogs/${article.handle}`,
             trackingParams: article.trackingParameters,
@@ -63,7 +59,7 @@ function SearchResultsArticles({
   );
 }
 
-function SearchResultsPages({term, pages}: PartialSearchResult<'pages'>) {
+function SearchResultsPages({ term, pages }: PartialSearchResult<'pages'>) {
   if (!pages?.nodes.length) {
     return null;
   }
@@ -72,7 +68,7 @@ function SearchResultsPages({term, pages}: PartialSearchResult<'pages'>) {
     <div className="search-result">
       <h2>Pages</h2>
       <div>
-        {pages?.nodes?.map((page) => {
+        {pages?.nodes?.map(page => {
           const pageUrl = urlWithTrackingParams({
             baseUrl: `/pages/${page.handle}`,
             trackingParams: page.trackingParameters,
@@ -93,10 +89,7 @@ function SearchResultsPages({term, pages}: PartialSearchResult<'pages'>) {
   );
 }
 
-function SearchResultsProducts({
-  term,
-  products,
-}: PartialSearchResult<'products'>) {
+function SearchResultsProducts({ term, products }: PartialSearchResult<'products'>) {
   if (!products?.nodes.length) {
     return null;
   }
@@ -105,8 +98,8 @@ function SearchResultsProducts({
     <div className="search-result">
       <h2>Products</h2>
       <Pagination connection={products}>
-        {({nodes, isLoading, NextLink, PreviousLink}) => {
-          const ItemsMarkup = nodes.map((product) => {
+        {({ nodes, isLoading, NextLink, PreviousLink }) => {
+          const ItemsMarkup = nodes.map(product => {
             const productUrl = urlWithTrackingParams({
               baseUrl: `/products/${product.handle}`,
               trackingParams: product.trackingParameters,
@@ -119,9 +112,7 @@ function SearchResultsProducts({
             return (
               <div className="search-results-item" key={product.id}>
                 <Link prefetch="intent" to={productUrl}>
-                  {image && (
-                    <Image data={image} alt={product.title} width={50} />
-                  )}
+                  {image && <Image data={image} alt={product.title} width={50} />}
                   <div>
                     <p>{product.title}</p>
                     <small>{price && <Money data={price} />}</small>
@@ -143,9 +134,7 @@ function SearchResultsProducts({
                 <br />
               </div>
               <div>
-                <NextLink>
-                  {isLoading ? 'Loading...' : <span>Load more ↓</span>}
-                </NextLink>
+                <NextLink>{isLoading ? 'Loading...' : <span>Load more ↓</span>}</NextLink>
               </div>
             </div>
           );

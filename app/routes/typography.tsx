@@ -1,4 +1,4 @@
-import {Typography} from '~/components/ui/typography';
+import { Typography } from '~/components/ui/typography';
 
 export default function TypographyDemo() {
   return (
@@ -27,29 +27,26 @@ export default function TypographyDemo() {
 
         <div className="space-y-4">
           <Typography variant="lead">
-            This is a lead paragraph that introduces important content with
-            emphasis and larger text.
+            This is a lead paragraph that introduces important content with emphasis and larger
+            text.
           </Typography>
 
           <Typography variant="large">
-            This is large body text for important content that needs more
-            prominence than regular paragraphs.
+            This is large body text for important content that needs more prominence than
+            regular paragraphs.
           </Typography>
 
           <Typography variant="base">
-            This is the standard body text used throughout the application. It
-            provides the baseline reading experience with optimal legibility and
-            comfortable line spacing.
+            This is the standard body text used throughout the application. It provides the
+            baseline reading experience with optimal legibility and comfortable line spacing.
           </Typography>
 
           <Typography variant="small" muted>
-            This is small text often used for captions, metadata, or secondary
-            information.
+            This is small text often used for captions, metadata, or secondary information.
           </Typography>
 
           <Typography variant="xsmall" muted>
-            This is extra small text for disclaimers, fine print, or tertiary
-            information.
+            This is extra small text for disclaimers, fine print, or tertiary information.
           </Typography>
         </div>
       </section>
@@ -130,19 +127,14 @@ export default function TypographyDemo() {
         <div className="space-y-4">
           <div>
             <Typography variant="caption">Caption Text</Typography>
-            <Typography variant="base">
-              Regular content with a caption above
-            </Typography>
+            <Typography variant="base">Regular content with a caption above</Typography>
           </div>
 
-          <Typography variant="code">
-            const greeting = &quot;Hello, World!&quot;;
-          </Typography>
+          <Typography variant="code">const greeting = &quot;Hello, World!&quot;;</Typography>
 
           <Typography variant="blockquote">
-            &ldquo;The best way to predict the future is to create it.&rdquo; -
-            This is a blockquote example showcasing the italic styling and left
-            border.
+            &ldquo;The best way to predict the future is to create it.&rdquo; - This is a
+            blockquote example showcasing the italic styling and left border.
           </Typography>
         </div>
       </section>
@@ -185,9 +177,7 @@ export default function TypographyDemo() {
         <div className="space-y-4">
           <Typography variant="h3">This auto-maps to h3 element</Typography>
           <Typography variant="h4">This auto-maps to h4 element</Typography>
-          <Typography variant="blockquote">
-            This auto-maps to blockquote element
-          </Typography>
+          <Typography variant="blockquote">This auto-maps to blockquote element</Typography>
           <Typography variant="code">This auto-maps to code element</Typography>
         </div>
       </section>

@@ -1,12 +1,15 @@
-import {Link, useFetcher, type Fetcher} from 'react-router';
-import {Image, Money} from '@shopify/hydrogen';
-import React, {useRef, useEffect} from 'react';
+import React, { useEffect, useRef } from 'react';
+import { type Fetcher, Link, useFetcher } from 'react-router';
+
+import { Image, Money } from '@shopify/hydrogen';
+
 import {
+  type PredictiveSearchReturn,
   getEmptyPredictiveSearchResult,
   urlWithTrackingParams,
-  type PredictiveSearchReturn,
 } from '~/lib/search';
-import {useAside} from './Aside';
+
+import { useAside } from './Aside';
 
 type PredictiveSearchItems = PredictiveSearchReturn['result']['items'];
 
@@ -29,8 +32,7 @@ type SearchResultsPredictiveArgs = Pick<
 type PartialPredictiveSearchResult<
   ItemType extends keyof PredictiveSearchItems,
   ExtraProps extends keyof SearchResultsPredictiveArgs = 'term' | 'closeSearch',
-> = Pick<PredictiveSearchItems, ItemType> &
-  Pick<SearchResultsPredictiveArgs, ExtraProps>;
+> = Pick<PredictiveSearchItems, ItemType> & Pick<SearchResultsPredictiveArgs, ExtraProps>;
 
 type SearchResultsPredictiveProps = {
   children: (args: SearchResultsPredictiveArgs) => React.ReactNode;
@@ -39,11 +41,9 @@ type SearchResultsPredictiveProps = {
 /**
  * Component that renders predictive search results
  */
-export function SearchResultsPredictive({
-  children,
-}: SearchResultsPredictiveProps) {
+export function SearchResultsPredictive({ children }: SearchResultsPredictiveProps) {
   const aside = useAside();
-  const {term, inputRef, fetcher, total, items} = usePredictiveSearch();
+  const { term, inputRef, fetcher, total, items } = usePredictiveSearch();
 
   /*
    * Utility that resets the search input
@@ -91,7 +91,7 @@ function SearchResultsPredictiveArticles({
     <div className="predictive-search-result" key="articles">
       <h5>Articles</h5>
       <ul>
-        {articles.map((article) => {
+        {articles.map(article => {
           const articleUrl = urlWithTrackingParams({
             baseUrl: `/blogs/${article.blog.handle}/${article.handle}`,
             trackingParams: article.trackingParameters,
@@ -132,7 +132,7 @@ function SearchResultsPredictiveCollections({
     <div className="predictive-search-result" key="collections">
       <h5>Collections</h5>
       <ul>
-        {collections.map((collection) => {
+        {collections.map(collection => {
           const collectionUrl = urlWithTrackingParams({
             baseUrl: `/collections/${collection.handle}`,
             trackingParams: collection.trackingParameters,
@@ -173,7 +173,7 @@ function SearchResultsPredictivePages({
     <div className="predictive-search-result" key="pages">
       <h5>Pages</h5>
       <ul>
-        {pages.map((page) => {
+        {pages.map(page => {
           const pageUrl = urlWithTrackingParams({
             baseUrl: `/pages/${page.handle}`,
             trackingParams: page.trackingParameters,
@@ -206,7 +206,7 @@ function SearchResultsPredictiveProducts({
     <div className="predictive-search-result" key="products">
       <h5>Products</h5>
       <ul>
-        {products.map((product) => {
+        {products.map(product => {
           const productUrl = urlWithTrackingParams({
             baseUrl: `/products/${product.handle}`,
             trackingParams: product.trackingParameters,
@@ -219,12 +219,7 @@ function SearchResultsPredictiveProducts({
             <li className="predictive-search-result-item" key={product.id}>
               <Link to={productUrl} onClick={closeSearch}>
                 {image && (
-                  <Image
-                    alt={image.altText ?? ''}
-                    src={image.url}
-                    width={50}
-                    height={50}
-                  />
+                  <Image alt={image.altText ?? ''} src={image.url} width={50} height={50} />
                 )}
                 <div>
                   <p>{product.title}</p>
@@ -249,7 +244,7 @@ function SearchResultsPredictiveQueries({
 
   return (
     <datalist id={queriesDatalistId}>
-      {queries.map((suggestion) => {
+      {queries.map(suggestion => {
         if (!suggestion) return null;
 
         return <option key={suggestion.text} value={suggestion.text} />;
@@ -258,11 +253,7 @@ function SearchResultsPredictiveQueries({
   );
 }
 
-function SearchResultsPredictiveEmpty({
-  term,
-}: {
-  term: React.MutableRefObject<string>;
-}) {
+function SearchResultsPredictiveEmpty({ term }: { term: React.MutableRefObject<string> }) {
   if (!term.current) {
     return null;
   }
@@ -282,7 +273,7 @@ function SearchResultsPredictiveEmpty({
  * '''
  **/
 function usePredictiveSearch(): UsePredictiveSearchReturn {
-  const fetcher = useFetcher<PredictiveSearchReturn>({key: 'search'});
+  const fetcher = useFetcher<PredictiveSearchReturn>({ key: 'search' });
   const term = useRef<string>('');
   const inputRef = useRef<HTMLInputElement | null>(null);
 
@@ -297,8 +288,7 @@ function usePredictiveSearch(): UsePredictiveSearchReturn {
     }
   }, []);
 
-  const {items, total} =
-    fetcher?.data?.result ?? getEmptyPredictiveSearchResult();
+  const { items, total } = fetcher?.data?.result ?? getEmptyPredictiveSearchResult();
 
-  return {items, total, inputRef, term, fetcher};
+  return { items, total, inputRef, term, fetcher };
 }

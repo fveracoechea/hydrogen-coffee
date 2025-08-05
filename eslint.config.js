@@ -1,17 +1,17 @@
-import {fixupConfigRules, fixupPluginRules} from '@eslint/compat';
+import { fixupConfigRules, fixupPluginRules } from '@eslint/compat';
+import { FlatCompat } from '@eslint/eslintrc';
+import js from '@eslint/js';
+import typescriptEslint from '@typescript-eslint/eslint-plugin';
+import tsParser from '@typescript-eslint/parser';
 import eslintComments from 'eslint-plugin-eslint-comments';
+import _import from 'eslint-plugin-import';
+import jest from 'eslint-plugin-jest';
+import jsxA11Y from 'eslint-plugin-jsx-a11y';
 import react from 'eslint-plugin-react';
 import reactHooks from 'eslint-plugin-react-hooks';
-import jsxA11Y from 'eslint-plugin-jsx-a11y';
 import globals from 'globals';
-import typescriptEslint from '@typescript-eslint/eslint-plugin';
-import _import from 'eslint-plugin-import';
-import tsParser from '@typescript-eslint/parser';
-import jest from 'eslint-plugin-jest';
 import path from 'node:path';
-import {fileURLToPath} from 'node:url';
-import js from '@eslint/js';
-import {FlatCompat} from '@eslint/eslintrc';
+import { fileURLToPath } from 'node:url';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -96,7 +96,7 @@ export default [
       'plugin:react-hooks/recommended',
       'plugin:jsx-a11y/recommended',
     ),
-  ).map((config) => ({
+  ).map(config => ({
     ...config,
     files: ['**/*.{js,jsx,ts,tsx}'],
   })),
@@ -140,7 +140,7 @@ export default [
       'plugin:import/recommended',
       'plugin:import/typescript',
     ),
-  ).map((config) => ({
+  ).map(config => ({
     ...config,
     files: ['**/*.{ts,tsx}'],
   })),
@@ -188,7 +188,7 @@ export default [
       },
     },
   },
-  ...compat.extends('plugin:jest/recommended').map((config) => ({
+  ...compat.extends('plugin:jest/recommended').map(config => ({
     ...config,
     files: ['**/*.test.*'],
   })),
@@ -215,7 +215,7 @@ export default [
       'plugin:@typescript-eslint/eslint-recommended',
       'plugin:@typescript-eslint/recommended',
     ),
-  ).map((config) => ({
+  ).map(config => ({
     ...config,
     files: ['**/*.ts', '**/*.tsx'],
   })),

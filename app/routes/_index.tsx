@@ -1,19 +1,21 @@
-import {type LoaderFunctionArgs} from '@shopify/remix-oxygen';
-import {Await, useLoaderData, Link, type MetaFunction} from 'react-router';
-import {Suspense} from 'react';
-import {Image, Money} from '@shopify/hydrogen';
+import { Suspense } from 'react';
+import { Await, Link, type MetaFunction, useLoaderData } from 'react-router';
+
+import { Image, Money } from '@shopify/hydrogen';
+import { type LoaderFunctionArgs } from '@shopify/remix-oxygen';
+import { clsx } from 'clsx';
 import type {
   FeaturedCollectionFragment,
   RecommendedProductsQuery,
 } from 'storefrontapi.generated';
-import {PRODUCT_ITEM_FRAGMENT, ProductItem} from '~/components/ProductItem';
-import {Typography} from '~/components/ui/typography';
-import {Button} from '~/components/ui/button';
-import {clsx} from 'clsx';
+
 import heroImage from '~/assets/hero.jpg?url';
+import { PRODUCT_ITEM_FRAGMENT, ProductItem } from '~/components/ProductItem';
+import { Button } from '~/components/ui/button';
+import { Typography } from '~/components/ui/typography';
 
 export const meta: MetaFunction = () => {
-  return [{title: 'Hydrogen | Home'}];
+  return [{ title: 'Hydrogen | Home' }];
 };
 
 export async function loader(args: LoaderFunctionArgs) {
@@ -23,15 +25,15 @@ export async function loader(args: LoaderFunctionArgs) {
   // Await the critical data required to render initial state of the page
   const criticalData = await loadCriticalData(args);
 
-  return {...deferredData, ...criticalData};
+  return { ...deferredData, ...criticalData };
 }
 
 /**
  * Load data necessary for rendering content above the fold. This is the critical data
  * needed to render the page. If it's unavailable, the whole page should 400 or 500 error.
  */
-async function loadCriticalData({context}: LoaderFunctionArgs) {
-  const [{collections}] = await Promise.all([
+async function loadCriticalData({ context }: LoaderFunctionArgs) {
+  const [{ collections }] = await Promise.all([
     context.storefront.query(FEATURED_COLLECTION_QUERY),
     // Add other queries here, so that they are loaded in parallel
   ]);
@@ -46,10 +48,10 @@ async function loadCriticalData({context}: LoaderFunctionArgs) {
  * fetched after the initial page load. If it's unavailable, the page should still 200.
  * Make sure to not throw any errors here, as it will cause the page to 500.
  */
-function loadDeferredData({context}: LoaderFunctionArgs) {
+function loadDeferredData({ context }: LoaderFunctionArgs) {
   const recommendedProducts = context.storefront
     .query(RECOMMENDED_PRODUCTS_QUERY)
-    .catch((error) => {
+    .catch(error => {
       // Log query errors, but don't throw them so the page can still render
       console.error(error);
       return null;
@@ -70,11 +72,7 @@ export default function Homepage() {
   );
 }
 
-function FeaturedCollection({
-  collection,
-}: {
-  collection: FeaturedCollectionFragment;
-}) {
+function FeaturedCollection({ collection }: { collection: FeaturedCollectionFragment }) {
   if (!collection) return null;
 
   const image = collection?.image;
@@ -103,9 +101,8 @@ function FeaturedCollection({
         )}
       >
         <Typography as="p" variant="large" className="text-balance">
-          Discover our carefully curated selection of single-origin and
-          specialty blend coffees, roasted to perfection and delivered straight
-          to your door.
+          Discover our carefully curated selection of single-origin and specialty blend
+          coffees, roasted to perfection and delivered straight to your door.
         </Typography>
       </div>
       <div className="flex gap-4 relative">
@@ -132,10 +129,10 @@ function RecommendedProducts({
       </Typography>
       <Suspense fallback={<div>Loading collections</div>}>
         <Await resolve={products}>
-          {(response) => (
+          {response => (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
               {response
-                ? response.products.nodes.map((product) => (
+                ? response.products.nodes.map(product => (
                     <ProductItem key={product.id} product={product} />
                   ))
                 : null}

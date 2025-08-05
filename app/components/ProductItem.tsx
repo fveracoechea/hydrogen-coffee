@@ -1,13 +1,16 @@
-import {Link} from 'react-router';
-import {Image, Money} from '@shopify/hydrogen';
-import type {ProductItemFragment} from 'storefrontapi.generated';
-import {useVariantUrl} from '~/lib/variants';
-import {Card} from '~/components/ui/card';
-import {Typography} from '~/components/ui/typography';
-import {Button} from './ui/button';
-import {AddToCartButton} from './AddToCartButton';
-import {useAside} from './Aside';
-import clsx from 'clsx';
+import { Link } from 'react-router';
+
+import { Image, Money } from '@shopify/hydrogen';
+import { clsx } from 'clsx';
+import type { ProductItemFragment } from 'storefrontapi.generated';
+
+import { Card } from '~/components/ui/card';
+import { Typography } from '~/components/ui/typography';
+import { useVariantUrl } from '~/lib/variants';
+
+import { AddToCartButton } from './AddToCartButton';
+import { useAside } from './Aside';
+import { Button } from './ui/button';
 
 export const PRODUCT_ITEM_FRAGMENT = `#graphql
 
@@ -54,7 +57,7 @@ export function ProductItem({
   product: ProductItemFragment;
   loading?: 'eager' | 'lazy';
 }) {
-  const {open} = useAside();
+  const { open } = useAside();
   const variantUrl = useVariantUrl(product.handle);
   const image = product.featuredImage;
   return (
@@ -78,11 +81,7 @@ export function ProductItem({
 
         <div className="flex flex-col gap-2 p-4">
           <div>
-            <Typography
-              variant="h6"
-              as="h4"
-              className="w-fit group-hover:text-primary"
-            >
+            <Typography variant="h6" as="h4" className="w-fit group-hover:text-primary">
               {product.title}
             </Typography>
             {product.category && (
@@ -93,7 +92,7 @@ export function ProductItem({
           </div>
 
           <div className="flex gap-2">
-            {product.tags.map((tag) => (
+            {product.tags.map(tag => (
               <Typography
                 key={tag}
                 variant="small"

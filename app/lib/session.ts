@@ -1,8 +1,8 @@
-import type {HydrogenSession} from '@shopify/hydrogen';
+import type { HydrogenSession } from '@shopify/hydrogen';
 import {
-  createCookieSessionStorage,
-  type SessionStorage,
   type Session,
+  type SessionStorage,
+  createCookieSessionStorage,
 } from '@shopify/remix-oxygen';
 
 /**
