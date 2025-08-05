@@ -194,6 +194,10 @@
   body {
     @apply bg-white text-foreground;
   }
+  aside {
+    will-change: unset !important;
+    -webkit-font-smoothing: antialiased;
+  }
 }
 
 /* Custom utility classes for the brown/blue theme */

@@ -11,7 +11,7 @@ import {
  * Theme Showcase Component
  * Demonstrates the new brown/blue color palette implementation
  */
-export function ThemeShowcase() {
+export default function ThemeShowcase() {
   return (
     <div className="space-y-8 p-8">
       <div>

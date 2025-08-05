@@ -130,7 +130,7 @@ function RecommendedProducts({
       <Suspense fallback={<div>Loading collections</div>}>
         <Await resolve={products}>
           {response => (
-            <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-8">
               {response
                 ? response.products.nodes.map(product => (
                     <ProductItem key={product.id} product={product} />

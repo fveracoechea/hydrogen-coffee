@@ -64,7 +64,7 @@ export function ProductItem({
     <Link prefetch="intent" to={variantUrl} className="group rounded-md">
       <article
         className={clsx(
-          'overflow-hidden rounded-md border border-border',
+          'overflow-hidden rounded-md border border-border bg-card',
           'transition-shadow hover:ring-2 hover:ring-primary',
         )}
       >
@@ -79,7 +79,7 @@ export function ProductItem({
           />
         )}
 
-        <div className="flex flex-col gap-2 p-4">
+        <div className="flex flex-col gap-2 border-t border-t-border p-4">
           <div>
             <Typography variant="h6" as="h4" className="w-fit group-hover:text-primary">
               {product.title}

@@ -1,10 +1,31 @@
 import { type ReactNode, createContext, useContext, useEffect, useState } from 'react';
 
+import { XIcon } from 'lucide-react';
+
+import { Button } from '~/components/ui/button';
+import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerDescription,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerTitle,
+} from '~/components/ui/drawer';
+
 type AsideType = 'search' | 'cart' | 'mobile' | 'closed';
+
 type AsideContextValue = {
   type: AsideType;
   open: (mode: AsideType) => void;
   close: () => void;
+};
+
+type AsideProps = {
+  type: AsideType;
+  header: React.ReactNode;
+  footer?: React.ReactNode;
+  children: React.ReactNode;
 };
 
 /**
@@ -17,48 +38,26 @@ type AsideContextValue = {
  * </Aside>
  * ```
  */
-export function Aside({
-  children,
-  heading,
-  type,
-}: {
-  children?: React.ReactNode;
-  type: AsideType;
-  heading: React.ReactNode;
-}) {
+export function Aside(props: AsideProps) {
+  const { children, header, footer, type } = props;
+
   const { type: activeType, close } = useAside();
   const expanded = type === activeType;
 
-  useEffect(() => {
-    const abortController = new AbortController();
-
-    if (expanded) {
-      document.addEventListener(
-        'keydown',
-        function handler(event: KeyboardEvent) {
-          if (event.key === 'Escape') {
-            close();
-          }
-        },
-        { signal: abortController.signal },
-      );
-    }
-    return () => abortController.abort();
-  }, [close, expanded]);
-
   return (
-    <div aria-modal className={`overlay ${expanded ? 'expanded' : ''}`} role="dialog">
-      <button className="close-outside" onClick={close} />
-      <aside>
-        <header>
-          <h3>{heading}</h3>
-          <button className="close reset" onClick={close} aria-label="Close">
-            &times;
-          </button>
-        </header>
-        <main>{children}</main>
-      </aside>
-    </div>
+    <Drawer
+      direction="right"
+      open={expanded}
+      onOpenChange={open => {
+        if (!open) close();
+      }}
+    >
+      <DrawerContent>
+        {header}
+        <main className="h-full p-4">{children}</main>
+        {footer}
+      </DrawerContent>
+    </Drawer>
   );
 }
 
