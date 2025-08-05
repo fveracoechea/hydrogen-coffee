@@ -128,7 +128,7 @@ function RecommendedProducts({
   return (
     <section className="flex flex-col gap-4 px-8 py-12">
       <Typography variant="h4" as="h3">
-        Our Coffee Collection
+        Best sellers
       </Typography>
       <Suspense fallback={<div>Loading collections</div>}>
         <Await resolve={products}>

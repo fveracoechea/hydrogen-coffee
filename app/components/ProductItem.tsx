@@ -7,6 +7,7 @@ import {Typography} from '~/components/ui/typography';
 import {Button} from './ui/button';
 import {AddToCartButton} from './AddToCartButton';
 import {useAside} from './Aside';
+import clsx from 'clsx';
 
 export const PRODUCT_ITEM_FRAGMENT = `#graphql
 
@@ -57,8 +58,13 @@ export function ProductItem({
   const variantUrl = useVariantUrl(product.handle);
   const image = product.featuredImage;
   return (
-    <article className="border border-border rounded-md overflow-hidden">
-      <Link prefetch="intent" to={variantUrl}>
+    <Link prefetch="intent" to={variantUrl} className="rounded-md group">
+      <article
+        className={clsx(
+          'border border-border rounded-md overflow-hidden',
+          'hover:ring-primary hover:ring-2 transition-shadow',
+        )}
+      >
         {image && (
           <Image
             alt={image.altText || product.title}
@@ -69,57 +75,55 @@ export function ProductItem({
             className="rounded-t-md"
           />
         )}
-      </Link>
 
-      <div className="flex flex-col gap-2 p-4">
-        <div>
-          <Link prefetch="intent" to={variantUrl}>
+        <div className="flex flex-col gap-2 p-4">
+          <div>
             <Typography
               variant="h6"
               as="h4"
-              className="w-fit hover:text-primary"
+              className="w-fit group-hover:text-primary"
             >
               {product.title}
             </Typography>
-          </Link>
-          {product.category && (
-            <Typography muted variant="caption">
-              {product.category.name}
-            </Typography>
-          )}
+            {product.category && (
+              <Typography muted variant="caption">
+                {product.category.name}
+              </Typography>
+            )}
+          </div>
+
+          <div className="flex gap-2">
+            {product.tags.map((tag) => (
+              <Typography
+                key={tag}
+                variant="small"
+                className="border border-accent text-accent-foreground bg-accent/40 px-2 rounded-full"
+              >
+                {tag}
+              </Typography>
+            ))}
+          </div>
+
+          <Typography variant="large" className="mt-2 text-right">
+            <Money as="span" data={product.priceRange.minVariantPrice} />
+          </Typography>
+
+          {/* <AddToCartButton */}
+          {/*   variant="outline" */}
+          {/*   disabled={!product.availableForSale} */}
+          {/*   onClick={() => open('cart')} */}
+          {/*   lines={[ */}
+          {/*     { */}
+          {/*       merchandiseId: product.id, */}
+          {/*       quantity: 1, */}
+          {/*       selectedVariant: product, */}
+          {/*     }, */}
+          {/*   ]} */}
+          {/* > */}
+          {/*   {product.availableForSale ? 'Add to cart' : 'Sold out'} */}
+          {/* </AddToCartButton> */}
         </div>
-
-        <div className="flex gap-2">
-          {product.tags.map((tag) => (
-            <Typography
-              key={tag}
-              variant="small"
-              className="border border-accent text-accent-foreground bg-accent/40 px-2 rounded-full"
-            >
-              {tag}
-            </Typography>
-          ))}
-        </div>
-
-        <Typography variant="large" className="mt-2 text-right">
-          <Money as="span" data={product.priceRange.minVariantPrice} />
-        </Typography>
-
-        {/* <AddToCartButton */}
-        {/*   variant="outline" */}
-        {/*   disabled={!product.availableForSale} */}
-        {/*   onClick={() => open('cart')} */}
-        {/*   lines={[ */}
-        {/*     { */}
-        {/*       merchandiseId: product.id, */}
-        {/*       quantity: 1, */}
-        {/*       selectedVariant: product, */}
-        {/*     }, */}
-        {/*   ]} */}
-        {/* > */}
-        {/*   {product.availableForSale ? 'Add to cart' : 'Sold out'} */}
-        {/* </AddToCartButton> */}
-      </div>
-    </article>
+      </article>
+    </Link>
   );
 }
