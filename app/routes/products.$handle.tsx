@@ -143,7 +143,7 @@ export default function Product() {
   );
 }
 
-const PRODUCT_VARIANT_FRAGMENT = `#graphql
+export const PRODUCT_VARIANT_FRAGMENT = `#graphql
   fragment ProductVariant on ProductVariant {
     availableForSale
     compareAtPrice {

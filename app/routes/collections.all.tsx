@@ -77,6 +77,8 @@ const COLLECTION_ITEM_FRAGMENT = `#graphql
     id
     handle
     title
+    category {name}
+    tags
     featuredImage {
       id
       altText

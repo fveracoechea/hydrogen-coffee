@@ -29,7 +29,7 @@ export function Header({
 }: HeaderProps) {
   const {shop, menu} = header;
   return (
-    <header className="px-8 py-4 flex gap-12 bg-white border-b">
+    <header className="px-8 py-4 flex gap-12 border-b">
       <NavLink
         end
         to="/"

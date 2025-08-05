@@ -82,6 +82,17 @@ This project implements a cohesive brown and blue color palette for a warm, prof
 
 ### Color Palette
 
+The theme uses OKLCH color space for better color consistency:
+
+```css
+:root {
+  --foreground: oklch(0.32 0.06 30); /* Dark Brown for text */
+  --primary: oklch(0.54 0.08 35); /* Medium Brown for buttons */
+  --secondary: oklch(0.88 0.04 50); /* Golden/Tan for badges */
+  --accent: oklch(0.88 0.04 200); /* Light Blue for cart sidebar */
+}
+```
+
 - **`#6C3428` (Dark Brown)**: Main text and headers - provides excellent contrast
 - **`#BA704F` (Medium Brown)**: Buttons and accent elements
 - **`#DFA878` (Golden/Tan)**: Badges and subtle backgrounds
