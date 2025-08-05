@@ -23,7 +23,7 @@ type Viewport = 'desktop' | 'mobile';
 export function Header({ header, isLoggedIn, cart, publicStoreDomain }: HeaderProps) {
   const { shop, menu } = header;
   return (
-    <header className="px-8 py-4 flex gap-12 border-b">
+    <header className="flex gap-12 border-b px-8 py-4">
       <NavLink
         end
         to="/"
@@ -31,7 +31,7 @@ export function Header({ header, isLoggedIn, cart, publicStoreDomain }: HeaderPr
         className="flex items-center hover:text-primary"
       >
         <Typography variant="title" as="h1" className="flex gap-2 text-inherit">
-          <CoffeeIcon className="stroke-primary w-7 h-7" />
+          <CoffeeIcon className="h-7 w-7 stroke-primary" />
           <span> CoffeeHunt</span>
         </Typography>
       </NavLink>
@@ -41,7 +41,7 @@ export function Header({ header, isLoggedIn, cart, publicStoreDomain }: HeaderPr
         publicStoreDomain={publicStoreDomain}
       />
 
-      <nav className="flex gap-2.5 items-center" role="navigation">
+      <nav className="flex items-center gap-2.5" role="navigation">
         <SearchToggle />
         <Button asChild variant="outline" size="icon">
           <NavLink prefetch="intent" to="/account">
@@ -70,7 +70,7 @@ function DesktopNavigationMenu(props: {
 }) {
   const { menu, publicStoreDomain, primaryDomainUrl } = props;
   return (
-    <nav className="flex flex-1 gap-4 items-center" role="navigation">
+    <nav className="flex flex-1 items-center gap-4" role="navigation">
       {(menu || FALLBACK_HEADER_MENU).items.map(item => {
         if (!item.url) return null;
 
@@ -157,7 +157,7 @@ function SearchToggle() {
     <Button
       variant="outline"
       onClick={() => open('search')}
-      className="justify-start cursor-pointer"
+      className="cursor-pointer justify-start"
     >
       <SearchIcon />
       <Typography variant="xsmall" muted className="">
@@ -184,13 +184,13 @@ function CartBadge({ count }: { count: number | null }) {
 
   return (
     <Button asChild variant="outline" size="icon">
-      <a href="/cart" onClick={onClick} title="Shopping Cart" className="block relative">
+      <a href="/cart" onClick={onClick} title="Shopping Cart" className="relative block">
         <ShoppingCartIcon className="size-5" />
         {count != null && count > 0 && (
           <span
             className={clsx(
-              'absolute flex justify-center items-center top-[-8px] right-[-8px]',
-              'bg-primary text-white w-5 h-5 rounded-full text-sm',
+              'absolute top-[-8px] right-[-8px] flex items-center justify-center',
+              'h-5 w-5 rounded-full bg-primary text-sm text-white',
             )}
           >
             {count}

@@ -13,9 +13,9 @@ import {
  */
 export function ThemeShowcase() {
   return (
-    <div className="p-8 space-y-8">
+    <div className="space-y-8 p-8">
       <div>
-        <h1 className="text-4xl font-bold text-foreground mb-2">Theme Showcase</h1>
+        <h1 className="mb-2 text-4xl font-bold text-foreground">Theme Showcase</h1>
         <p className="text-muted-foreground">Brown & Blue Color Palette Implementation</p>
       </div>
 
@@ -28,25 +28,25 @@ export function ThemeShowcase() {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
             <div className="text-center">
-              <div className="bg-dark-brown h-20 rounded-lg mb-2"></div>
-              <p className="font-medium text-dark-brown">#6C3428</p>
+              <div className="bg-dark-brown mb-2 h-20 rounded-lg"></div>
+              <p className="text-dark-brown font-medium">#6C3428</p>
               <p className="text-sm text-muted-foreground">Dark Brown - Text & Headers</p>
             </div>
             <div className="text-center">
-              <div className="bg-medium-brown h-20 rounded-lg mb-2"></div>
-              <p className="font-medium text-medium-brown">#BA704F</p>
+              <div className="bg-medium-brown mb-2 h-20 rounded-lg"></div>
+              <p className="text-medium-brown font-medium">#BA704F</p>
               <p className="text-sm text-muted-foreground">Medium Brown - Buttons</p>
             </div>
             <div className="text-center">
-              <div className="bg-golden-tan h-20 rounded-lg mb-2"></div>
-              <p className="font-medium text-golden-tan">#DFA878</p>
+              <div className="bg-golden-tan mb-2 h-20 rounded-lg"></div>
+              <p className="text-golden-tan font-medium">#DFA878</p>
               <p className="text-sm text-muted-foreground">Golden/Tan - Badges</p>
             </div>
             <div className="text-center">
-              <div className="bg-light-blue h-20 rounded-lg mb-2"></div>
-              <p className="font-medium text-light-blue">#CEE6F3</p>
+              <div className="bg-light-blue mb-2 h-20 rounded-lg"></div>
+              <p className="text-light-blue font-medium">#CEE6F3</p>
               <p className="text-sm text-muted-foreground">Light Blue - Cart Sidebar</p>
             </div>
           </div>
@@ -88,8 +88,8 @@ export function ThemeShowcase() {
           <p className="text-muted-foreground">
             Muted text for secondary information and descriptions.
           </p>
-          <div className="inline-block bg-secondary px-3 py-1 rounded-full">
-            <span className="text-secondary-foreground font-medium">Badge Example</span>
+          <div className="inline-block rounded-full bg-secondary px-3 py-1">
+            <span className="font-medium text-secondary-foreground">Badge Example</span>
           </div>
         </CardContent>
       </Card>
@@ -103,8 +103,8 @@ export function ThemeShowcase() {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="gradient-cart h-32 rounded-lg flex items-center justify-center">
-            <p className="text-dark-brown font-bold text-lg">Cart Sidebar Gradient</p>
+          <div className="gradient-cart flex h-32 items-center justify-center rounded-lg">
+            <p className="text-dark-brown text-lg font-bold">Cart Sidebar Gradient</p>
           </div>
         </CardContent>
       </Card>

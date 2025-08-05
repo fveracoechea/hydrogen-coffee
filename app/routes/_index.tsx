@@ -79,25 +79,25 @@ function FeaturedCollection({ collection }: { collection: FeaturedCollectionFrag
   if (!image) return null;
 
   return (
-    <section className="flex flex-col gap-2 p-8 justify-center items-center relative aspect-video overflow-hidden">
+    <section className="relative flex aspect-video flex-col items-center justify-center gap-2 overflow-hidden p-8">
       <img
         src={heroImage}
         alt={image.altText || 'Featured Collection'}
-        className="absolute left-[50%] top-[50%] translate-[-50%] object-center object-cover"
+        className="absolute top-[50%] left-[50%] translate-[-50%] object-cover object-center"
       />
       <Image
-        className="absolute left-[50%] top-[50%] translate-[-50%] object-center object-cover hidden"
+        className="absolute top-[50%] left-[50%] hidden translate-[-50%] object-cover object-center"
         data={image}
         sizes="100vw"
       />
-      <div className="inset-0 absolute bg-gradient-to-r from-accent/70 to-secondary/70" />
-      <Typography variant="h2" className="text-balance relative">
+      <div className="absolute inset-0 bg-gradient-to-r from-accent/70 to-secondary/70" />
+      <Typography variant="h2" className="relative text-balance">
         Premium Coffee, Delivered Fresh
       </Typography>
       <div
         className={clsx(
-          'relative gap-2 text-center w-full max-w-2xl',
-          'flex flex-col justify-center items-center',
+          'relative w-full max-w-2xl gap-2 text-center',
+          'flex flex-col items-center justify-center',
         )}
       >
         <Typography as="p" variant="large" className="text-balance">
@@ -105,7 +105,7 @@ function FeaturedCollection({ collection }: { collection: FeaturedCollectionFrag
           coffees, roasted to perfection and delivered straight to your door.
         </Typography>
       </div>
-      <div className="flex gap-4 relative">
+      <div className="relative flex gap-4">
         <Button size="lg" variant="secondary" className="w-fit">
           Shop Now
         </Button>
@@ -123,14 +123,14 @@ function RecommendedProducts({
   products: Promise<RecommendedProductsQuery | null>;
 }) {
   return (
-    <section className="flex flex-col gap-4 px-8 py-12 border-t border-t-border">
+    <section className="flex flex-col gap-4 border-t border-t-border px-8 py-12">
       <Typography variant="h4" as="h3">
         Best sellers
       </Typography>
       <Suspense fallback={<div>Loading collections</div>}>
         <Await resolve={products}>
           {response => (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
               {response
                 ? response.products.nodes.map(product => (
                     <ProductItem key={product.id} product={product} />

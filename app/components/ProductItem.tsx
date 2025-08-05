@@ -61,11 +61,11 @@ export function ProductItem({
   const variantUrl = useVariantUrl(product.handle);
   const image = product.featuredImage;
   return (
-    <Link prefetch="intent" to={variantUrl} className="rounded-md group">
+    <Link prefetch="intent" to={variantUrl} className="group rounded-md">
       <article
         className={clsx(
-          'border border-border rounded-md overflow-hidden',
-          'hover:ring-primary hover:ring-2 transition-shadow',
+          'overflow-hidden rounded-md border border-border',
+          'transition-shadow hover:ring-2 hover:ring-primary',
         )}
       >
         {image && (
@@ -96,7 +96,7 @@ export function ProductItem({
               <Typography
                 key={tag}
                 variant="small"
-                className="border border-accent text-accent-foreground bg-accent/40 px-2 rounded-full"
+                className="rounded-full border border-accent bg-accent/40 px-2 text-accent-foreground"
               >
                 {tag}
               </Typography>

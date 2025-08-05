@@ -57,34 +57,34 @@ const typography = cva('transition-colors', {
   variants: {
     variant: {
       // Heading variants with proper hierarchy
-      h1: 'text-4xl md:text-5xl lg:text-6xl font-bold leading-tight tracking-tight text-foreground',
-      h2: 'text-3xl md:text-4xl lg:text-5xl font-semibold leading-tight tracking-tight text-foreground',
-      h3: 'text-2xl md:text-3xl lg:text-4xl font-semibold leading-snug tracking-normal text-foreground',
-      h4: 'text-xl md:text-2xl lg:text-3xl font-medium leading-snug tracking-normal text-foreground',
-      h5: 'text-lg md:text-xl lg:text-2xl font-medium leading-normal tracking-normal text-foreground',
-      h6: 'text-base md:text-lg lg:text-xl font-medium leading-normal tracking-normal text-foreground',
+      h1: 'text-4xl leading-tight font-bold tracking-tight text-foreground md:text-5xl lg:text-6xl',
+      h2: 'text-3xl leading-tight font-semibold tracking-tight text-foreground md:text-4xl lg:text-5xl',
+      h3: 'text-2xl leading-snug font-semibold tracking-normal text-foreground md:text-3xl lg:text-4xl',
+      h4: 'text-xl leading-snug font-medium tracking-normal text-foreground md:text-2xl lg:text-3xl',
+      h5: 'text-lg leading-normal font-medium tracking-normal text-foreground md:text-xl lg:text-2xl',
+      h6: 'text-base leading-normal font-medium tracking-normal text-foreground md:text-lg lg:text-xl',
 
       // Content variants
-      lead: 'text-xl md:text-2xl font-light leading-relaxed text-muted-foreground',
-      large: 'text-lg font-normal leading-relaxed text-foreground',
-      base: 'text-base font-normal leading-normal text-foreground',
-      small: 'text-sm font-normal leading-relaxed text-muted-foreground',
-      xsmall: 'text-xs font-normal leading-relaxed text-muted-foreground',
+      lead: 'text-xl leading-relaxed font-light text-muted-foreground md:text-2xl',
+      large: 'text-lg leading-relaxed font-normal text-foreground',
+      base: 'text-base leading-normal font-normal text-foreground',
+      small: 'text-sm leading-relaxed font-normal text-muted-foreground',
+      xsmall: 'text-xs leading-relaxed font-normal text-muted-foreground',
 
-      title: 'text-foreground text-xl font-medium leading-normal',
+      title: 'text-xl leading-normal font-medium text-foreground',
 
       // Navigation variant with theme colors
       nav: [
-        'text-muted-foreground text-base font-normal hover:text-foreground leading-none transition-colors',
-        '[&.active]:text-primary [&.active]:font-medium',
+        'text-base leading-none font-normal text-muted-foreground transition-colors hover:text-foreground',
+        '[&.active]:font-medium [&.active]:text-primary',
       ],
 
       // Specialized variants
       caption:
-        'text-xs font-normal leading-tight text-muted-foreground uppercase tracking-wide',
-      code: 'text-sm font-mono leading-relaxed bg-muted px-1.5 py-0.5 rounded text-muted-foreground',
+        'text-xs leading-tight font-normal tracking-wide text-muted-foreground uppercase',
+      code: 'rounded bg-muted px-1.5 py-0.5 font-mono text-sm leading-relaxed text-muted-foreground',
       blockquote:
-        'text-lg font-normal leading-relaxed italic text-muted-foreground border-l-4 border-primary pl-4',
+        'border-l-4 border-primary pl-4 text-lg leading-relaxed font-normal text-muted-foreground italic',
     },
     color: {
       default: '',

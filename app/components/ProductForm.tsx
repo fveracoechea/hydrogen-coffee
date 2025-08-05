@@ -71,7 +71,7 @@ export function ProductForm({
                   return (
                     <button
                       type="button"
-                      className={`product-options-item${exists && !selected ? ' link' : ''}`}
+                      className={`product-options-item${exists && !selected ? 'link' : ''}`}
                       key={option.name + name}
                       style={{
                         border: selected ? '1px solid black' : '1px solid transparent',

@@ -5,7 +5,7 @@
   "trailingComma": "all",
   "proseWrap": "always",
   "arrowParens": "avoid",
-  "plugins": ["prettier-plugin-tailwindcss", "@trivago/prettier-plugin-sort-imports"],
+  "plugins": ["@trivago/prettier-plugin-sort-imports", "prettier-plugin-tailwindcss"],
   "importOrder": [
     "^dotenv/config$",
     "^vite$",

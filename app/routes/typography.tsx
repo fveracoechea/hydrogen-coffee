@@ -2,7 +2,7 @@ import { Typography } from '~/components/ui/typography';
 
 export default function TypographyDemo() {
   return (
-    <div className="max-w-4xl mx-auto p-8 space-y-12">
+    <div className="mx-auto max-w-4xl space-y-12 p-8">
       {/* Heading Hierarchy */}
       <section>
         <Typography variant="h2" className="mb-6">
@@ -59,7 +59,7 @@ export default function TypographyDemo() {
           Theme Colors
         </Typography>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
           <div className="space-y-2">
             <Typography variant="base" color="default">
               Default color text
