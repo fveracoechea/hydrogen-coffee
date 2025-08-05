@@ -13,7 +13,9 @@ export type CustomerAddressUpdateMutationVariables = CustomerAccountAPI.Exact<{
 
 export type CustomerAddressUpdateMutation = {
   customerAddressUpdate?: CustomerAccountAPI.Maybe<{
-    customerAddress?: CustomerAccountAPI.Maybe<Pick<CustomerAccountAPI.CustomerAddress, 'id'>>;
+    customerAddress?: CustomerAccountAPI.Maybe<
+      Pick<CustomerAccountAPI.CustomerAddress, 'id'>
+    >;
     userErrors: Array<
       Pick<
         CustomerAccountAPI.UserErrorsCustomerAddressUserErrors,
@@ -49,7 +51,9 @@ export type CustomerAddressCreateMutationVariables = CustomerAccountAPI.Exact<{
 
 export type CustomerAddressCreateMutation = {
   customerAddressCreate?: CustomerAccountAPI.Maybe<{
-    customerAddress?: CustomerAccountAPI.Maybe<Pick<CustomerAccountAPI.CustomerAddress, 'id'>>;
+    customerAddress?: CustomerAccountAPI.Maybe<
+      Pick<CustomerAccountAPI.CustomerAddress, 'id'>
+    >;
     userErrors: Array<
       Pick<
         CustomerAccountAPI.UserErrorsCustomerAddressUserErrors,
@@ -162,11 +166,17 @@ export type CustomerDetailsQuery = {
   };
 };
 
-export type OrderMoneyFragment = Pick<CustomerAccountAPI.MoneyV2, 'amount' | 'currencyCode'>;
+export type OrderMoneyFragment = Pick<
+  CustomerAccountAPI.MoneyV2,
+  'amount' | 'currencyCode'
+>;
 
 export type DiscountApplicationFragment = {
   value:
-    | ({ __typename: 'MoneyV2' } & Pick<CustomerAccountAPI.MoneyV2, 'amount' | 'currencyCode'>)
+    | ({ __typename: 'MoneyV2' } & Pick<
+        CustomerAccountAPI.MoneyV2,
+        'amount' | 'currencyCode'
+      >)
     | ({ __typename: 'PricingPercentageValue' } & Pick<
         CustomerAccountAPI.PricingPercentageValue,
         'percentage'
@@ -292,12 +302,18 @@ export type OrderQuery = {
       };
       lineItems: {
         nodes: Array<
-          Pick<CustomerAccountAPI.LineItem, 'id' | 'title' | 'quantity' | 'variantTitle'> & {
+          Pick<
+            CustomerAccountAPI.LineItem,
+            'id' | 'title' | 'quantity' | 'variantTitle'
+          > & {
             price?: CustomerAccountAPI.Maybe<
               Pick<CustomerAccountAPI.MoneyV2, 'amount' | 'currencyCode'>
             >;
             discountAllocations: Array<{
-              allocatedAmount: Pick<CustomerAccountAPI.MoneyV2, 'amount' | 'currencyCode'>;
+              allocatedAmount: Pick<
+                CustomerAccountAPI.MoneyV2,
+                'amount' | 'currencyCode'
+              >;
               discountApplication: {
                 value:
                   | ({ __typename: 'MoneyV2' } & Pick<
@@ -312,7 +328,10 @@ export type OrderQuery = {
             }>;
             totalDiscount: Pick<CustomerAccountAPI.MoneyV2, 'amount' | 'currencyCode'>;
             image?: CustomerAccountAPI.Maybe<
-              Pick<CustomerAccountAPI.Image, 'altText' | 'height' | 'url' | 'id' | 'width'>
+              Pick<
+                CustomerAccountAPI.Image,
+                'altText' | 'height' | 'url' | 'id' | 'width'
+              >
             >;
           }
         >;
@@ -332,7 +351,10 @@ export type OrderItemFragment = Pick<
 export type CustomerOrdersFragment = {
   orders: {
     nodes: Array<
-      Pick<CustomerAccountAPI.Order, 'financialStatus' | 'id' | 'number' | 'processedAt'> & {
+      Pick<
+        CustomerAccountAPI.Order,
+        'financialStatus' | 'id' | 'number' | 'processedAt'
+      > & {
         totalPrice: Pick<CustomerAccountAPI.MoneyV2, 'amount' | 'currencyCode'>;
         fulfillments: {
           nodes: Array<Pick<CustomerAccountAPI.Fulfillment, 'status'>>;
@@ -347,17 +369,24 @@ export type CustomerOrdersFragment = {
 };
 
 export type CustomerOrdersQueryVariables = CustomerAccountAPI.Exact<{
-  endCursor?: CustomerAccountAPI.InputMaybe<CustomerAccountAPI.Scalars['String']['input']>;
+  endCursor?: CustomerAccountAPI.InputMaybe<
+    CustomerAccountAPI.Scalars['String']['input']
+  >;
   first?: CustomerAccountAPI.InputMaybe<CustomerAccountAPI.Scalars['Int']['input']>;
   last?: CustomerAccountAPI.InputMaybe<CustomerAccountAPI.Scalars['Int']['input']>;
-  startCursor?: CustomerAccountAPI.InputMaybe<CustomerAccountAPI.Scalars['String']['input']>;
+  startCursor?: CustomerAccountAPI.InputMaybe<
+    CustomerAccountAPI.Scalars['String']['input']
+  >;
 }>;
 
 export type CustomerOrdersQuery = {
   customer: {
     orders: {
       nodes: Array<
-        Pick<CustomerAccountAPI.Order, 'financialStatus' | 'id' | 'number' | 'processedAt'> & {
+        Pick<
+          CustomerAccountAPI.Order,
+          'financialStatus' | 'id' | 'number' | 'processedAt'
+        > & {
           totalPrice: Pick<CustomerAccountAPI.MoneyV2, 'amount' | 'currencyCode'>;
           fulfillments: {
             nodes: Array<Pick<CustomerAccountAPI.Fulfillment, 'status'>>;

@@ -17,7 +17,8 @@ export async function loader({ request, context, params }: LoaderFunctionArgs) {
 
   const url = new URL(request.url);
   const searchParams = new URLSearchParams(url.search);
-  let redirectParam = searchParams.get('redirect') || searchParams.get('return_to') || '/';
+  let redirectParam =
+    searchParams.get('redirect') || searchParams.get('return_to') || '/';
 
   if (redirectParam.includes('//')) {
     // Avoid redirecting to external URLs to prevent phishing attacks

@@ -219,7 +219,12 @@ function SearchResultsPredictiveProducts({
             <li className="predictive-search-result-item" key={product.id}>
               <Link to={productUrl} onClick={closeSearch}>
                 {image && (
-                  <Image alt={image.altText ?? ''} src={image.url} width={50} height={50} />
+                  <Image
+                    alt={image.altText ?? ''}
+                    src={image.url}
+                    width={50}
+                    height={50}
+                  />
                 )}
                 <div>
                   <p>{product.title}</p>
@@ -253,7 +258,11 @@ function SearchResultsPredictiveQueries({
   );
 }
 
-function SearchResultsPredictiveEmpty({ term }: { term: React.MutableRefObject<string> }) {
+function SearchResultsPredictiveEmpty({
+  term,
+}: {
+  term: React.MutableRefObject<string>;
+}) {
   if (!term.current) {
     return null;
   }

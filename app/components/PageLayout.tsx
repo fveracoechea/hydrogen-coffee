@@ -1,7 +1,11 @@
 import { Suspense, useId } from 'react';
 import { Await, Link } from 'react-router';
 
-import type { CartApiQueryFragment, FooterQuery, HeaderQuery } from 'storefrontapi.generated';
+import type {
+  CartApiQueryFragment,
+  FooterQuery,
+  HeaderQuery,
+} from 'storefrontapi.generated';
 
 import { Aside } from '~/components/Aside';
 import { CartMain } from '~/components/CartMain';

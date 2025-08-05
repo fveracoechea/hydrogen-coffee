@@ -24,7 +24,12 @@ export function Header({ header, isLoggedIn, cart, publicStoreDomain }: HeaderPr
   const { shop, menu } = header;
   return (
     <header className="px-8 py-4 flex gap-12 border-b">
-      <NavLink end to="/" prefetch="intent" className="flex items-center hover:text-primary">
+      <NavLink
+        end
+        to="/"
+        prefetch="intent"
+        className="flex items-center hover:text-primary"
+      >
         <Typography variant="title" as="h1" className="flex gap-2 text-inherit">
           <CoffeeIcon className="stroke-primary w-7 h-7" />
           <span> CoffeeHunt</span>
@@ -254,7 +259,13 @@ const FALLBACK_HEADER_MENU = {
   ],
 };
 
-function activeLinkStyle({ isActive, isPending }: { isActive: boolean; isPending: boolean }) {
+function activeLinkStyle({
+  isActive,
+  isPending,
+}: {
+  isActive: boolean;
+  isPending: boolean;
+}) {
   return {
     fontWeight: isActive ? 'bold' : undefined,
     color: isPending ? 'grey' : 'black',

@@ -1,0 +1,22 @@
+{
+  "semi": true,
+  "printWidth": 90,
+  "singleQuote": true,
+  "trailingComma": "all",
+  "proseWrap": "always",
+  "arrowParens": "avoid",
+  "plugins": ["prettier-plugin-tailwindcss", "@trivago/prettier-plugin-sort-imports"],
+  "importOrder": [
+    "^dotenv/config$",
+    "^vite$",
+    "^(react-(.*)$)|^(react/(.*)$)|^(react$)",
+    "<THIRD_PARTY_MODULES>",
+    "^~/(.*)$",
+    "^[../]",
+    "^[./]"
+  ],
+  "tailwindFunctions": ["clsx", "cn", "cva"],
+  "tailwindStylesheet": "./app/styles/tailwind.css",
+  "importOrderSeparation": true,
+  "importOrderSortSpecifiers": true
+}

@@ -47,7 +47,12 @@ export function CartMain({ layout, cart: originalCart }: CartMainProps) {
   );
 }
 
-function CartEmpty({ hidden = false }: { hidden: boolean; layout?: CartMainProps['layout'] }) {
+function CartEmpty({
+  hidden = false,
+}: {
+  hidden: boolean;
+  layout?: CartMainProps['layout'];
+}) {
   const { close } = useAside();
   return (
     <div hidden={hidden}>

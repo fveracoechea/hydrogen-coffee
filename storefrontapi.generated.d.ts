@@ -3,7 +3,10 @@
 /* eslint-disable */
 import type * as StorefrontAPI from '@shopify/hydrogen/storefront-api-types';
 
-export type MoneyProductItemFragment = Pick<StorefrontAPI.MoneyV2, 'amount' | 'currencyCode'>;
+export type MoneyProductItemFragment = Pick<
+  StorefrontAPI.MoneyV2,
+  'amount' | 'currencyCode'
+>;
 
 export type ProductItemFragment = Pick<
   StorefrontAPI.Product,
@@ -83,9 +86,15 @@ export type CartApiQueryFragment = Pick<
       amountUsed: Pick<StorefrontAPI.MoneyV2, 'currencyCode' | 'amount'>;
     }
   >;
-  buyerIdentity: Pick<StorefrontAPI.CartBuyerIdentity, 'countryCode' | 'email' | 'phone'> & {
+  buyerIdentity: Pick<
+    StorefrontAPI.CartBuyerIdentity,
+    'countryCode' | 'email' | 'phone'
+  > & {
     customer?: StorefrontAPI.Maybe<
-      Pick<StorefrontAPI.Customer, 'id' | 'email' | 'firstName' | 'lastName' | 'displayName'>
+      Pick<
+        StorefrontAPI.Customer,
+        'id' | 'email' | 'firstName' | 'lastName' | 'displayName'
+      >
     >;
   };
   lines: {
@@ -175,9 +184,15 @@ export type ParentMenuItemFragment = Pick<
 
 export type MenuFragment = Pick<StorefrontAPI.Menu, 'id'> & {
   items: Array<
-    Pick<StorefrontAPI.MenuItem, 'id' | 'resourceId' | 'tags' | 'title' | 'type' | 'url'> & {
+    Pick<
+      StorefrontAPI.MenuItem,
+      'id' | 'resourceId' | 'tags' | 'title' | 'type' | 'url'
+    > & {
       items: Array<
-        Pick<StorefrontAPI.MenuItem, 'id' | 'resourceId' | 'tags' | 'title' | 'type' | 'url'>
+        Pick<
+          StorefrontAPI.MenuItem,
+          'id' | 'resourceId' | 'tags' | 'title' | 'type' | 'url'
+        >
       >;
     }
   >;
@@ -293,7 +308,10 @@ export type RecommendedProductsQueryVariables = StorefrontAPI.Exact<{
 export type RecommendedProductsQuery = {
   products: {
     nodes: Array<
-      Pick<StorefrontAPI.Product, 'id' | 'title' | 'tags' | 'handle' | 'availableForSale'> & {
+      Pick<
+        StorefrontAPI.Product,
+        'id' | 'title' | 'tags' | 'handle' | 'availableForSale'
+      > & {
         category?: StorefrontAPI.Maybe<Pick<StorefrontAPI.TaxonomyCategory, 'name'>>;
         priceRange: {
           minVariantPrice: Pick<StorefrontAPI.MoneyV2, 'amount' | 'currencyCode'>;
@@ -318,7 +336,10 @@ export type ArticleQuery = {
   blog?: StorefrontAPI.Maybe<
     Pick<StorefrontAPI.Blog, 'handle'> & {
       articleByHandle?: StorefrontAPI.Maybe<
-        Pick<StorefrontAPI.Article, 'handle' | 'title' | 'contentHtml' | 'publishedAt'> & {
+        Pick<
+          StorefrontAPI.Article,
+          'handle' | 'title' | 'contentHtml' | 'publishedAt'
+        > & {
           author?: StorefrontAPI.Maybe<Pick<StorefrontAPI.ArticleAuthor, 'name'>>;
           image?: StorefrontAPI.Maybe<
             Pick<StorefrontAPI.Image, 'id' | 'altText' | 'url' | 'width' | 'height'>
@@ -437,7 +458,10 @@ export type CollectionQuery = {
   >;
 };
 
-export type CollectionFragment = Pick<StorefrontAPI.Collection, 'id' | 'title' | 'handle'> & {
+export type CollectionFragment = Pick<
+  StorefrontAPI.Collection,
+  'id' | 'title' | 'handle'
+> & {
   image?: StorefrontAPI.Maybe<
     Pick<StorefrontAPI.Image, 'id' | 'url' | 'altText' | 'width' | 'height'>
   >;
@@ -562,7 +586,10 @@ export type PolicyQuery = {
   };
 };
 
-export type PolicyItemFragment = Pick<StorefrontAPI.ShopPolicy, 'id' | 'title' | 'handle'>;
+export type PolicyItemFragment = Pick<
+  StorefrontAPI.ShopPolicy,
+  'id' | 'title' | 'handle'
+>;
 
 export type PoliciesQueryVariables = StorefrontAPI.Exact<{
   country?: StorefrontAPI.InputMaybe<StorefrontAPI.CountryCode>;
@@ -593,7 +620,9 @@ export type ProductVariantFragment = Pick<
   StorefrontAPI.ProductVariant,
   'availableForSale' | 'id' | 'sku' | 'title'
 > & {
-  compareAtPrice?: StorefrontAPI.Maybe<Pick<StorefrontAPI.MoneyV2, 'amount' | 'currencyCode'>>;
+  compareAtPrice?: StorefrontAPI.Maybe<
+    Pick<StorefrontAPI.MoneyV2, 'amount' | 'currencyCode'>
+  >;
   image?: StorefrontAPI.Maybe<
     { __typename: 'Image' } & Pick<
       StorefrontAPI.Image,
@@ -622,7 +651,10 @@ export type ProductFragment = Pick<
       optionValues: Array<
         Pick<StorefrontAPI.ProductOptionValue, 'name'> & {
           firstSelectableVariant?: StorefrontAPI.Maybe<
-            Pick<StorefrontAPI.ProductVariant, 'availableForSale' | 'id' | 'sku' | 'title'> & {
+            Pick<
+              StorefrontAPI.ProductVariant,
+              'availableForSale' | 'id' | 'sku' | 'title'
+            > & {
               compareAtPrice?: StorefrontAPI.Maybe<
                 Pick<StorefrontAPI.MoneyV2, 'amount' | 'currencyCode'>
               >;
@@ -634,7 +666,9 @@ export type ProductFragment = Pick<
               >;
               price: Pick<StorefrontAPI.MoneyV2, 'amount' | 'currencyCode'>;
               product: Pick<StorefrontAPI.Product, 'title' | 'handle'>;
-              selectedOptions: Array<Pick<StorefrontAPI.SelectedOption, 'name' | 'value'>>;
+              selectedOptions: Array<
+                Pick<StorefrontAPI.SelectedOption, 'name' | 'value'>
+              >;
               unitPrice?: StorefrontAPI.Maybe<
                 Pick<StorefrontAPI.MoneyV2, 'amount' | 'currencyCode'>
               >;
@@ -665,7 +699,9 @@ export type ProductFragment = Pick<
       price: Pick<StorefrontAPI.MoneyV2, 'amount' | 'currencyCode'>;
       product: Pick<StorefrontAPI.Product, 'title' | 'handle'>;
       selectedOptions: Array<Pick<StorefrontAPI.SelectedOption, 'name' | 'value'>>;
-      unitPrice?: StorefrontAPI.Maybe<Pick<StorefrontAPI.MoneyV2, 'amount' | 'currencyCode'>>;
+      unitPrice?: StorefrontAPI.Maybe<
+        Pick<StorefrontAPI.MoneyV2, 'amount' | 'currencyCode'>
+      >;
     }
   >;
   adjacentVariants: Array<
@@ -682,7 +718,9 @@ export type ProductFragment = Pick<
       price: Pick<StorefrontAPI.MoneyV2, 'amount' | 'currencyCode'>;
       product: Pick<StorefrontAPI.Product, 'title' | 'handle'>;
       selectedOptions: Array<Pick<StorefrontAPI.SelectedOption, 'name' | 'value'>>;
-      unitPrice?: StorefrontAPI.Maybe<Pick<StorefrontAPI.MoneyV2, 'amount' | 'currencyCode'>>;
+      unitPrice?: StorefrontAPI.Maybe<
+        Pick<StorefrontAPI.MoneyV2, 'amount' | 'currencyCode'>
+      >;
     }
   >;
   seo: Pick<StorefrontAPI.Seo, 'description' | 'title'>;
@@ -730,7 +768,9 @@ export type ProductQuery = {
                   >;
                   price: Pick<StorefrontAPI.MoneyV2, 'amount' | 'currencyCode'>;
                   product: Pick<StorefrontAPI.Product, 'title' | 'handle'>;
-                  selectedOptions: Array<Pick<StorefrontAPI.SelectedOption, 'name' | 'value'>>;
+                  selectedOptions: Array<
+                    Pick<StorefrontAPI.SelectedOption, 'name' | 'value'>
+                  >;
                   unitPrice?: StorefrontAPI.Maybe<
                     Pick<StorefrontAPI.MoneyV2, 'amount' | 'currencyCode'>
                   >;
@@ -748,7 +788,10 @@ export type ProductQuery = {
         }
       >;
       selectedOrFirstAvailableVariant?: StorefrontAPI.Maybe<
-        Pick<StorefrontAPI.ProductVariant, 'availableForSale' | 'id' | 'sku' | 'title'> & {
+        Pick<
+          StorefrontAPI.ProductVariant,
+          'availableForSale' | 'id' | 'sku' | 'title'
+        > & {
           compareAtPrice?: StorefrontAPI.Maybe<
             Pick<StorefrontAPI.MoneyV2, 'amount' | 'currencyCode'>
           >;
@@ -767,7 +810,10 @@ export type ProductQuery = {
         }
       >;
       adjacentVariants: Array<
-        Pick<StorefrontAPI.ProductVariant, 'availableForSale' | 'id' | 'sku' | 'title'> & {
+        Pick<
+          StorefrontAPI.ProductVariant,
+          'availableForSale' | 'id' | 'sku' | 'title'
+        > & {
           compareAtPrice?: StorefrontAPI.Maybe<
             Pick<StorefrontAPI.MoneyV2, 'amount' | 'currencyCode'>
           >;
@@ -866,7 +912,9 @@ export type RegularSearchQuery = {
               compareAtPrice?: StorefrontAPI.Maybe<
                 Pick<StorefrontAPI.MoneyV2, 'amount' | 'currencyCode'>
               >;
-              selectedOptions: Array<Pick<StorefrontAPI.SelectedOption, 'name' | 'value'>>;
+              selectedOptions: Array<
+                Pick<StorefrontAPI.SelectedOption, 'name' | 'value'>
+              >;
               product: Pick<StorefrontAPI.Product, 'handle' | 'title'>;
             }
           >;
@@ -919,7 +967,10 @@ export type PredictiveProductFragment = { __typename: 'Product' } & Pick<
 
 export type PredictiveQueryFragment = {
   __typename: 'SearchQuerySuggestion';
-} & Pick<StorefrontAPI.SearchQuerySuggestion, 'text' | 'styledText' | 'trackingParameters'>;
+} & Pick<
+  StorefrontAPI.SearchQuerySuggestion,
+  'text' | 'styledText' | 'trackingParameters'
+>;
 
 export type PredictiveSearchQueryVariables = StorefrontAPI.Exact<{
   country?: StorefrontAPI.InputMaybe<StorefrontAPI.CountryCode>;

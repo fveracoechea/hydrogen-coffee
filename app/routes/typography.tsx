@@ -27,8 +27,8 @@ export default function TypographyDemo() {
 
         <div className="space-y-4">
           <Typography variant="lead">
-            This is a lead paragraph that introduces important content with emphasis and larger
-            text.
+            This is a lead paragraph that introduces important content with emphasis and
+            larger text.
           </Typography>
 
           <Typography variant="large">
@@ -37,12 +37,14 @@ export default function TypographyDemo() {
           </Typography>
 
           <Typography variant="base">
-            This is the standard body text used throughout the application. It provides the
-            baseline reading experience with optimal legibility and comfortable line spacing.
+            This is the standard body text used throughout the application. It provides
+            the baseline reading experience with optimal legibility and comfortable line
+            spacing.
           </Typography>
 
           <Typography variant="small" muted>
-            This is small text often used for captions, metadata, or secondary information.
+            This is small text often used for captions, metadata, or secondary
+            information.
           </Typography>
 
           <Typography variant="xsmall" muted>
@@ -130,7 +132,9 @@ export default function TypographyDemo() {
             <Typography variant="base">Regular content with a caption above</Typography>
           </div>
 
-          <Typography variant="code">const greeting = &quot;Hello, World!&quot;;</Typography>
+          <Typography variant="code">
+            const greeting = &quot;Hello, World!&quot;;
+          </Typography>
 
           <Typography variant="blockquote">
             &ldquo;The best way to predict the future is to create it.&rdquo; - This is a
@@ -177,7 +181,9 @@ export default function TypographyDemo() {
         <div className="space-y-4">
           <Typography variant="h3">This auto-maps to h3 element</Typography>
           <Typography variant="h4">This auto-maps to h4 element</Typography>
-          <Typography variant="blockquote">This auto-maps to blockquote element</Typography>
+          <Typography variant="blockquote">
+            This auto-maps to blockquote element
+          </Typography>
           <Typography variant="code">This auto-maps to code element</Typography>
         </div>
       </section>

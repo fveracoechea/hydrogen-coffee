@@ -9,7 +9,11 @@ interface FooterProps {
   publicStoreDomain: string;
 }
 
-export function Footer({ footer: footerPromise, header, publicStoreDomain }: FooterProps) {
+export function Footer({
+  footer: footerPromise,
+  header,
+  publicStoreDomain,
+}: FooterProps) {
   return (
     <Suspense>
       <Await resolve={footerPromise}>
@@ -106,7 +110,13 @@ const FALLBACK_FOOTER_MENU = {
   ],
 };
 
-function activeLinkStyle({ isActive, isPending }: { isActive: boolean; isPending: boolean }) {
+function activeLinkStyle({
+  isActive,
+  isPending,
+}: {
+  isActive: boolean;
+  isPending: boolean;
+}) {
   return {
     fontWeight: isActive ? 'bold' : undefined,
     color: isPending ? 'grey' : 'white',

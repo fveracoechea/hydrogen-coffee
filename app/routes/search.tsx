@@ -18,9 +18,10 @@ export const meta: MetaFunction = () => {
 export async function loader({ request, context }: LoaderFunctionArgs) {
   const url = new URL(request.url);
   const isPredictive = url.searchParams.has('predictive');
-  const searchPromise: Promise<PredictiveSearchReturn | RegularSearchReturn> = isPredictive
-    ? predictiveSearch({ request, context })
-    : regularSearch({ request, context });
+  const searchPromise: Promise<PredictiveSearchReturn | RegularSearchReturn> =
+    isPredictive
+      ? predictiveSearch({ request, context })
+      : regularSearch({ request, context });
 
   searchPromise.catch((error: Error) => {
     console.error(error);
@@ -376,17 +377,22 @@ async function predictiveSearch({
   if (!term) return { type, term, result: getEmptyPredictiveSearchResult() };
 
   // Predictively search articles, collections, pages, products, and queries (suggestions)
-  const { predictiveSearch: items, errors } = await storefront.query(PREDICTIVE_SEARCH_QUERY, {
-    variables: {
-      // customize search options as needed
-      limit,
-      limitScope: 'EACH',
-      term,
+  const { predictiveSearch: items, errors } = await storefront.query(
+    PREDICTIVE_SEARCH_QUERY,
+    {
+      variables: {
+        // customize search options as needed
+        limit,
+        limitScope: 'EACH',
+        term,
+      },
     },
-  });
+  );
 
   if (errors) {
-    throw new Error(`Shopify API errors: ${errors.map(({ message }) => message).join(', ')}`);
+    throw new Error(
+      `Shopify API errors: ${errors.map(({ message }) => message).join(', ')}`,
+    );
   }
 
   if (!items) {

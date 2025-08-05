@@ -47,7 +47,13 @@ export default function AccountLayout() {
 }
 
 function AccountMenu() {
-  function isActiveStyle({ isActive, isPending }: { isActive: boolean; isPending: boolean }) {
+  function isActiveStyle({
+    isActive,
+    isPending,
+  }: {
+    isActive: boolean;
+    isPending: boolean;
+  }) {
     return {
       fontWeight: isActive ? 'bold' : undefined,
       color: isPending ? 'grey' : 'black',

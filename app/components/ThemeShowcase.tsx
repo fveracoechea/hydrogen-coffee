@@ -23,7 +23,9 @@ export function ThemeShowcase() {
       <Card>
         <CardHeader>
           <CardTitle>Color Palette</CardTitle>
-          <CardDescription>Primary colors used throughout the application</CardDescription>
+          <CardDescription>
+            Primary colors used throughout the application
+          </CardDescription>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
@@ -74,8 +76,12 @@ export function ThemeShowcase() {
           <CardTitle>Typography & Text Colors</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
-          <h2 className="text-2xl font-bold text-foreground">Main Heading (Dark Brown)</h2>
-          <h3 className="text-xl font-semibold text-primary">Subheading (Medium Brown)</h3>
+          <h2 className="text-2xl font-bold text-foreground">
+            Main Heading (Dark Brown)
+          </h2>
+          <h3 className="text-xl font-semibold text-primary">
+            Subheading (Medium Brown)
+          </h3>
           <p className="text-foreground">
             Regular paragraph text using the foreground color for excellent readability.
           </p>

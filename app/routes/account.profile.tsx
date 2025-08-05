@@ -7,7 +7,11 @@ import {
 } from 'react-router';
 
 import type { CustomerUpdateInput } from '@shopify/hydrogen/customer-account-api-types';
-import { type ActionFunctionArgs, type LoaderFunctionArgs, data } from '@shopify/remix-oxygen';
+import {
+  type ActionFunctionArgs,
+  type LoaderFunctionArgs,
+  data,
+} from '@shopify/remix-oxygen';
 import type { CustomerFragment } from 'customer-accountapi.generated';
 
 import { CUSTOMER_UPDATE_MUTATION } from '~/graphql/customer-account/CustomerUpdateMutation';

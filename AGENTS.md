@@ -1,6 +1,7 @@
 # Agent Guidelines for Hydrogen React Router Project
 
-This is a Hydrogen ecommerce project using React Router v7, Chadcn/UI components, and TailwindCSS v4.
+This is a Hydrogen ecommerce project using React Router v7, Chadcn/UI components, and
+TailwindCSS v4.
 
 ## Build/Lint/Test Commands
 
@@ -10,22 +11,26 @@ This is a Hydrogen ecommerce project using React Router v7, Chadcn/UI components
 - `npm run dev` - Start development server with codegen
 - `npm run preview` - Preview production build
 - `npm run codegen` - Generate GraphQL types
+- `npm run prettier:check` - Check code formatting
+- `npm run prettier:write` - Format code with Prettier
 
 ## Critical React Router Import Rule
 
 **NEVER use `@remix-run/*` or `react-router-dom` imports!**
 
-- Use `react-router` for hooks like `useLoaderData`, `Link`, `Form`, `useActionData`, `useNavigation`, `useSubmit`
+- Use `react-router` for hooks like `useLoaderData`, `Link`, `Form`, `useActionData`,
+  `useNavigation`, `useSubmit`
 - Use `@react-router/*` packages for dev tools and adapters
 
 ## Code Style Guidelines
 
-- Use TypeScript with explicit types for props and API responses
+- Use TypeScript with explicit interfaces for component props and API responses
 - Components: PascalCase, files end with `.tsx`
-- Functions/variables: camelCase
+- Functions/variables: camelCase (enforced by ESLint naming-convention rule)
 - Use `clsx` for conditional classes, `cn` utility for class merging
 - Prefer named exports over default exports
-- Import order: React → external libs → internal (`~/`)
+- Import order: React → external libs → internal (`~/`) (auto-sorted by Prettier)
+- Use generated GraphQL types (e.g., `HeaderQuery`, `ProductItemFragment`)
 
 ## Error Handling & Performance
 

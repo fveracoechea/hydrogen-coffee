@@ -8,7 +8,11 @@ import {
 } from 'react-router';
 
 import type { CustomerAddressInput } from '@shopify/hydrogen/customer-account-api-types';
-import { type ActionFunctionArgs, type LoaderFunctionArgs, data } from '@shopify/remix-oxygen';
+import {
+  type ActionFunctionArgs,
+  type LoaderFunctionArgs,
+  data,
+} from '@shopify/remix-oxygen';
 import type { AddressFragment, CustomerFragment } from 'customer-accountapi.generated';
 
 import {
@@ -281,7 +285,11 @@ function NewAddressForm() {
     <AddressForm addressId={'NEW_ADDRESS_ID'} address={newAddress} defaultAddress={null}>
       {({ stateForMethod }) => (
         <div>
-          <button disabled={stateForMethod('POST') !== 'idle'} formMethod="POST" type="submit">
+          <button
+            disabled={stateForMethod('POST') !== 'idle'}
+            formMethod="POST"
+            type="submit"
+          >
             {stateForMethod('POST') !== 'idle' ? 'Creating' : 'Create'}
           </button>
         </div>

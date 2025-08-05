@@ -5,7 +5,10 @@ import { Image, Money, Pagination } from '@shopify/hydrogen';
 import { type RegularSearchReturn, urlWithTrackingParams } from '~/lib/search';
 
 type SearchItems = RegularSearchReturn['result']['items'];
-type PartialSearchResult<ItemType extends keyof SearchItems> = Pick<SearchItems, ItemType> &
+type PartialSearchResult<ItemType extends keyof SearchItems> = Pick<
+  SearchItems,
+  ItemType
+> &
   Pick<RegularSearchReturn, 'term'>;
 
 type SearchResultsProps = RegularSearchReturn & {

@@ -2,7 +2,11 @@
 /// <reference types="react-router" />
 /// <reference types="@shopify/oxygen-workers-types" />
 // Enhance TypeScript's built-in typings.
-import type { HydrogenContext, HydrogenEnv, HydrogenSessionData } from '@shopify/hydrogen';
+import type {
+  HydrogenContext,
+  HydrogenEnv,
+  HydrogenSessionData,
+} from '@shopify/hydrogen';
 import '@total-typescript/ts-reset';
 
 import type { createAppLoadContext } from '~/lib/context';

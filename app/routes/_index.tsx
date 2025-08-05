@@ -123,7 +123,7 @@ function RecommendedProducts({
   products: Promise<RecommendedProductsQuery | null>;
 }) {
   return (
-    <section className="flex flex-col gap-4 px-8 py-12">
+    <section className="flex flex-col gap-4 px-8 py-12 border-t border-t-border">
       <Typography variant="h4" as="h3">
         Best sellers
       </Typography>

@@ -50,7 +50,10 @@ export default function Collections() {
   return (
     <div className="collections">
       <h1>Collections</h1>
-      <PaginatedResourceSection connection={collections} resourcesClassName="collections-grid">
+      <PaginatedResourceSection
+        connection={collections}
+        resourcesClassName="collections-grid"
+      >
         {({ node: collection, index }) => (
           <CollectionItem key={collection.id} collection={collection} index={index} />
         )}

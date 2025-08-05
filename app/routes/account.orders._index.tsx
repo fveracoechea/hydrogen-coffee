@@ -2,7 +2,10 @@ import { Link, type MetaFunction, useLoaderData } from 'react-router';
 
 import { Money, flattenConnection, getPaginationVariables } from '@shopify/hydrogen';
 import { type LoaderFunctionArgs } from '@shopify/remix-oxygen';
-import type { CustomerOrdersFragment, OrderItemFragment } from 'customer-accountapi.generated';
+import type {
+  CustomerOrdersFragment,
+  OrderItemFragment,
+} from 'customer-accountapi.generated';
 
 import { PaginatedResourceSection } from '~/components/PaginatedResourceSection';
 import { CUSTOMER_ORDERS_QUERY } from '~/graphql/customer-account/CustomerOrdersQuery';
