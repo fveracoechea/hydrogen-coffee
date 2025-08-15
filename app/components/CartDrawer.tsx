@@ -213,7 +213,7 @@ export function CartDrawer(props: Props) {
       {cartHasItems ? (
         <ul className="flex flex-col gap-4">
           {(cart?.lines?.nodes ?? []).map(line => (
-            <CartDrawerLineItem key={line.id} line={line} layout="aside" />
+            <CartDrawerLineItem key={line.id} line={line} />
           ))}
         </ul>
       ) : (
