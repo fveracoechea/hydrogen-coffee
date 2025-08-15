@@ -65,13 +65,12 @@ const typography = cva('transition-colors', {
       h6: 'text-base leading-normal font-medium tracking-normal text-foreground md:text-lg lg:text-xl',
 
       // Content variants
+      title: 'text-xl leading-normal font-medium text-foreground',
       lead: 'text-xl leading-relaxed font-light text-muted-foreground md:text-2xl',
       large: 'text-lg leading-relaxed font-normal text-foreground',
       base: 'text-base leading-normal font-normal text-foreground',
-      small: 'text-sm leading-relaxed font-normal text-muted-foreground',
-      xsmall: 'text-xs leading-relaxed font-normal text-muted-foreground',
-
-      title: 'text-xl leading-normal font-medium text-foreground',
+      small: 'text-sm leading-relaxed font-normal text-foreground',
+      xsmall: 'text-xs leading-relaxed font-normal text-foreground',
 
       // Navigation variant with theme colors
       nav: [

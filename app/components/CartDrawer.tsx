@@ -3,7 +3,7 @@ import { Await, Link, useAsyncValue } from 'react-router';
 
 import { Money, useOptimisticCart } from '@shopify/hydrogen';
 import { CartForm, Image, type OptimisticCartLine } from '@shopify/hydrogen';
-import { CoffeeIcon, PlusIcon } from 'lucide-react';
+import { CoffeeIcon, MinusIcon, PlusIcon, Trash2Icon, TrashIcon } from 'lucide-react';
 import { CartApiQueryFragment } from 'storefrontapi.generated';
 
 import { Aside, useAside } from '~/components/Aside';
@@ -18,7 +18,7 @@ import {
 import { Typography } from '~/components/ui/typography';
 import { useVariantUrl } from '~/lib/variants';
 
-import { CartLineItem } from './CartLineItem';
+import { CartLineItem, getUpdateKey } from './CartLineItem';
 
 type CartLine = OptimisticCartLine<CartApiQueryFragment>;
 
@@ -40,9 +40,82 @@ function CartEmpty() {
   );
 }
 
+function RemoveButton(props: { lineIds: string[]; disabled: boolean }) {
+  const { lineIds, disabled } = props;
+  return (
+    <CartForm
+      fetcherKey={getUpdateKey(lineIds)}
+      route="/cart"
+      action={CartForm.ACTIONS.LinesRemove}
+      inputs={{ lineIds }}
+    >
+      <Button
+        size="icon"
+        type="submit"
+        variant="ghost"
+        className="size-6"
+        disabled={disabled}
+        aria-label="Remove from cart"
+      >
+        <TrashIcon className="stroke-muted-foreground" />
+      </Button>
+    </CartForm>
+  );
+}
+
+function ItemQuantity(props: { line: CartLine }) {
+  const { line } = props;
+  if (!line || typeof line?.quantity === 'undefined') return null;
+
+  const { id: lineId, quantity, isOptimistic } = line;
+  const prevQuantity = Number(Math.max(0, quantity - 1).toFixed(0));
+  const nextQuantity = Number((quantity + 1).toFixed(0));
+
+  return (
+    <div className="flex items-center gap-2.5">
+      <CartForm
+        route="/cart"
+        fetcherKey={getUpdateKey([lineId])}
+        action={CartForm.ACTIONS.LinesUpdate}
+        inputs={{ lines: [{ id: lineId, quantity: prevQuantity }] }}
+      >
+        <Button
+          size="icon"
+          type="submit"
+          variant="outline"
+          className="size-6"
+          disabled={quantity <= 1 || !!isOptimistic}
+          aria-label="Decrease quantity"
+        >
+          <MinusIcon />
+        </Button>
+      </CartForm>
+
+      <Typography variant="small">{line.quantity}</Typography>
+
+      <CartForm
+        route="/cart"
+        fetcherKey={getUpdateKey([lineId])}
+        action={CartForm.ACTIONS.LinesUpdate}
+        inputs={{ lines: [{ id: lineId, quantity: nextQuantity }] }}
+      >
+        <Button
+          size="icon"
+          type="submit"
+          variant="outline"
+          className="size-6"
+          aria-label="Increase quantity"
+        >
+          <PlusIcon />
+        </Button>
+      </CartForm>
+    </div>
+  );
+}
+
 function CartDrawerLineItem(props: { line: CartLine }) {
   const { line } = props;
-  const { id, merchandise } = line;
+  const { id, merchandise, isOptimistic } = line;
   const { product, title, image, selectedOptions } = merchandise;
 
   const { close } = useAside();
@@ -54,12 +127,12 @@ function CartDrawerLineItem(props: { line: CartLine }) {
         <Link
           prefetch="intent"
           to={lineItemUrl}
-          className="shrink-0 rounded-l-md"
+          className="shrink-0.5 flex min-h-max rounded-l-md"
           onClick={close}
         >
           <Image
-            className="rounded-l-md"
-            width={100}
+            className="h-max rounded-l-md"
+            width={120}
             loading="lazy"
             aspectRatio="1/1"
             alt={title}
@@ -67,29 +140,35 @@ function CartDrawerLineItem(props: { line: CartLine }) {
           />
         </Link>
       )}
-      <div className="flex flex-1 flex-col gap-0 px-4 py-1.5">
-        <Link prefetch="intent" to={lineItemUrl} onClick={close}>
-          <Typography
-            as="h4"
-            variant="small"
-            className="font-medium text-foreground underline-offset-2 hover:underline"
-          >
-            {product.title}
-          </Typography>
-        </Link>
-        <Typography variant="small">
-          <Money as="span" data={line.cost.totalAmount} />
-        </Typography>
+      <div className="flex flex-1 flex-col px-4 py-1.5">
+        <div className="flex justify-between gap-4">
+          <Link prefetch="intent" to={lineItemUrl} onClick={close}>
+            <Typography
+              as="h4"
+              variant="small"
+              className="font-medium text-foreground underline-offset-2 hover:underline"
+            >
+              {product.title}
+            </Typography>
+          </Link>
+          <RemoveButton lineIds={[id]} disabled={!!isOptimistic} />
+        </div>
+
         {selectedOptions.map(option => (
-          <Typography as="span" key={option.name} variant="xsmall">
+          <Typography as="span" key={option.name} variant="small" muted>
             {option.name}: {option.value}
           </Typography>
         ))}
-      </div>
-      <div className="flex flex-col">
-        <Button variant="ghost" size="icon">
-          <PlusIcon />
-        </Button>
+
+        <div className="flex flex-1 items-end justify-between gap-4">
+          <ItemQuantity line={line} />
+
+          {line?.cost?.totalAmount && (
+            <Typography variant="small">
+              <Money as="span" data={line?.cost?.totalAmount} />
+            </Typography>
+          )}
+        </div>
       </div>
     </li>
   );

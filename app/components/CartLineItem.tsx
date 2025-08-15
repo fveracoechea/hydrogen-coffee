@@ -160,6 +160,6 @@ function CartLineUpdateButton({
  * @param lineIds - line ids affected by the update
  * @returns
  */
-function getUpdateKey(lineIds: string[]) {
+export function getUpdateKey(lineIds: string[]) {
   return [CartForm.ACTIONS.LinesUpdate, ...lineIds].join('-');
 }
