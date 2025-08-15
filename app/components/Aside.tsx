@@ -54,7 +54,7 @@ export function Aside(props: AsideProps) {
     >
       <DrawerContent>
         {header}
-        <main className="h-full max-h-full overflow-y-scroll p-4">{children}</main>
+        <main className="h-full max-h-full overflow-y-auto p-4">{children}</main>
         {footer}
       </DrawerContent>
     </Drawer>

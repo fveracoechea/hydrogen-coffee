@@ -197,16 +197,36 @@ export function CartDrawer(props: Props) {
       }
       footer={
         <DrawerFooter>
-          <DrawerClose asChild>
-            <Button variant={cartHasItems ? 'outline' : 'default'} size="lg">
-              Continue Shopping
-            </Button>
-          </DrawerClose>
           {cartHasItems && (
-            <DrawerClose asChild>
-              <Button size="lg">Go to Checkout</Button>
-            </DrawerClose>
+            <div className="flex gap-2">
+              <Typography variant="large">Subtotal</Typography>
+              <Typography variant="large">
+                {cart.cost?.subtotalAmount ? (
+                  <Money data={cart.cost?.subtotalAmount} />
+                ) : (
+                  '-'
+                )}
+              </Typography>
+            </div>
           )}
+          <div className="flex flex-1 gap-2">
+            <DrawerClose asChild>
+              <Button
+                variant={cartHasItems ? 'outline' : 'default'}
+                size="lg"
+                className="flex-1"
+              >
+                Continue Shopping
+              </Button>
+            </DrawerClose>
+            {cartHasItems && (
+              <DrawerClose asChild>
+                <Button size="lg" className="flex-1">
+                  Go to Checkout
+                </Button>
+              </DrawerClose>
+            )}
+          </div>
         </DrawerFooter>
       }
     >
