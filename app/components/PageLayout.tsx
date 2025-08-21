@@ -17,6 +17,7 @@ import { Typography } from '~/components/ui/typography';
 
 import { CartDrawer } from './CartDrawer';
 import { CartSummary } from './CartSummary';
+import { SearchDrawer } from './SearchDrawer';
 import { DrawerHeader, DrawerTitle } from './ui/drawer';
 
 interface PageLayoutProps {
@@ -38,8 +39,12 @@ export function PageLayout({
 }: PageLayoutProps) {
   return (
     <Aside.Provider>
-      <CartAside cart={cart} />
-      <SearchAside />
+      <Suspense fallback={null}>
+        <Await resolve={cart}>
+          <CartDrawer />
+        </Await>
+      </Suspense>
+      <SearchDrawer />
       <MobileMenuAside header={header} publicStoreDomain={publicStoreDomain} />
       {header && (
         <Header
@@ -52,16 +57,6 @@ export function PageLayout({
       <main>{children}</main>
       <Footer footer={footer} header={header} publicStoreDomain={publicStoreDomain} />
     </Aside.Provider>
-  );
-}
-
-function CartAside({ cart }: { cart: PageLayoutProps['cart'] }) {
-  return (
-    <Suspense fallback={<p>Loading cart ...</p>}>
-      <Await resolve={cart}>
-        <CartDrawer />
-      </Await>
-    </Suspense>
   );
 }
 
