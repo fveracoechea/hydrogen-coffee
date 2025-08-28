@@ -21,11 +21,8 @@ export const SEARCH_ENDPOINT = '/search';
 /**
  *  Search form component that sends search requests to the `/search` route
  **/
-export function SearchFormPredictive({
-  children,
-  className = 'predictive-search-form',
-  ...props
-}: SearchFormPredictiveProps) {
+export function SearchFormPredictive(props: SearchFormPredictiveProps) {
+  const { children, ...formProps } = props;
   const fetcher = useFetcher<PredictiveSearchReturn>({ key: 'search' });
   const inputRef = useRef<HTMLInputElement | null>(null);
   const navigate = useNavigate();
@@ -55,10 +52,9 @@ export function SearchFormPredictive({
     );
   }
 
-  // ensure the passed input has a type of search, because SearchResults
-  // will select the element based on the input
+  // Focus the input on mount
   useEffect(() => {
-    inputRef?.current?.setAttribute('type', 'search');
+    inputRef.current?.focus();
   }, []);
 
   if (typeof children !== 'function') {
@@ -66,7 +62,7 @@ export function SearchFormPredictive({
   }
 
   return (
-    <fetcher.Form {...props} className={className} onSubmit={resetInput}>
+    <fetcher.Form {...formProps} onSubmit={resetInput}>
       {children({ inputRef, fetcher, fetchResults, goToSearch })}
     </fetcher.Form>
   );

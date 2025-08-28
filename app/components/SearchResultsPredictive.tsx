@@ -29,7 +29,7 @@ type SearchResultsPredictiveArgs = Pick<
   closeSearch: () => void;
 };
 
-type PartialPredictiveSearchResult<
+export type PartialPredictiveSearchResult<
   ItemType extends keyof PredictiveSearchItems,
   ExtraProps extends keyof SearchResultsPredictiveArgs = 'term' | 'closeSearch',
 > = Pick<PredictiveSearchItems, ItemType> & Pick<SearchResultsPredictiveArgs, ExtraProps>;

@@ -145,7 +145,7 @@ function CartDrawerLineItem(props: { line: CartLine }) {
           <Link prefetch="intent" to={lineItemUrl} onClick={close}>
             <Typography
               as="h4"
-              variant="small"
+              variant="base"
               className="font-medium text-foreground underline-offset-2 hover:underline"
             >
               {product.title}
