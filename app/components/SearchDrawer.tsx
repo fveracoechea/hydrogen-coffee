@@ -1,4 +1,4 @@
-import { DetailedHTMLProps, HTMLAttributes, useEffect, useId, useState } from 'react';
+import { DetailedHTMLProps, HTMLAttributes, useId, useState } from 'react';
 import { Link } from 'react-router';
 
 import { Image, Money } from '@shopify/hydrogen';
