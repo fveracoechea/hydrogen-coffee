@@ -5,11 +5,14 @@ import { type ActionFunctionArgs, type LoaderFunctionArgs } from '@shopify/remix
 
 import { SearchForm } from '~/components/SearchForm';
 import { SearchResults } from '~/components/SearchResults';
+import { asyncTimeout } from '~/lib/delay';
 import {
   type PredictiveSearchReturn,
   type RegularSearchReturn,
   getEmptyPredictiveSearchResult,
 } from '~/lib/search';
+
+import { type Route } from './+types/search';
 
 export const meta: MetaFunction = () => {
   return [{ title: `Hydrogen | Search` }];
@@ -29,6 +32,15 @@ export async function loader({ request, context }: LoaderFunctionArgs) {
   });
 
   return await searchPromise;
+}
+
+export async function clientLoader({ request, serverLoader }: Route.ClientLoaderArgs) {
+  const url = new URL(request.url);
+  const isPredictive = url.searchParams.has('predictive');
+  if (isPredictive) {
+    return await asyncTimeout(serverLoader, { delay: 350, signal: request.signal });
+  }
+  return await serverLoader();
 }
 
 /**

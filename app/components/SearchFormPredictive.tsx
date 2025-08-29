@@ -1,40 +1,55 @@
-import React, { useEffect, useRef } from 'react';
-import { type Fetcher, type FormProps, useFetcher, useNavigate } from 'react-router';
+import { useEffect, useRef, useState } from 'react';
+import { useFetcher, useNavigate } from 'react-router';
+import { type Fetcher } from 'react-router';
 
-import type { PredictiveSearchReturn } from '~/lib/search';
+import {
+  type PredictiveSearchReturn,
+  getEmptyPredictiveSearchResult,
+} from '~/lib/search';
 
 import { useAside } from './Aside';
 
-type SearchFormPredictiveChildren = (args: {
-  fetchResults: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  goToSearch: () => void;
-  inputRef: React.MutableRefObject<HTMLInputElement | null>;
-  fetcher: Fetcher<PredictiveSearchReturn>;
-}) => React.ReactNode;
-
-type SearchFormPredictiveProps = Omit<FormProps, 'children'> & {
-  children: SearchFormPredictiveChildren | null;
-};
-
 export const SEARCH_ENDPOINT = '/search';
 
-/**
- *  Search form component that sends search requests to the `/search` route
- **/
-export function SearchFormPredictive(props: SearchFormPredictiveProps) {
-  const { children, ...formProps } = props;
-  const fetcher = useFetcher<PredictiveSearchReturn>({ key: 'search' });
-  const inputRef = useRef<HTMLInputElement | null>(null);
-  const navigate = useNavigate();
+type PredictiveSearchItems = PredictiveSearchReturn['result']['items'];
+
+type UsePredictiveSearchReturn = {
+  total: number;
+  inputRef: React.Ref<HTMLInputElement | null>;
+  items: PredictiveSearchItems;
+  fetcher: Fetcher<PredictiveSearchReturn>;
+};
+
+type SearchResultsPredictiveArgs = Pick<
+  UsePredictiveSearchReturn,
+  'total' | 'inputRef' | 'items'
+> & {
+  state: Fetcher['state'];
+  closeSearch: () => void;
+  search: string;
+  setSearch: (value: string) => void;
+  fetchResults: (value: string) => void;
+};
+
+export type PartialPredictiveSearchResult<
+  ItemType extends keyof PredictiveSearchItems,
+  ExtraProps extends keyof SearchResultsPredictiveArgs = 'closeSearch',
+> = Pick<PredictiveSearchItems, ItemType> & Pick<SearchResultsPredictiveArgs, ExtraProps>;
+
+export function usePredictiveSearch() {
   const aside = useAside();
+  const navigate = useNavigate();
+  const inputRef = useRef<HTMLInputElement | null>(null);
+  const fetcher = useFetcher<PredictiveSearchReturn>({ key: 'search' });
+
+  const [search, setSearch] = useState('');
+
+  const { items, total } = fetcher?.data?.result ?? getEmptyPredictiveSearchResult();
 
   /** Reset the input value and blur the input */
-  function resetInput(event: React.FormEvent<HTMLFormElement>) {
+  function handleFormSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     event.stopPropagation();
-    if (inputRef?.current?.value) {
-      inputRef.current.blur();
-    }
   }
 
   /** Navigate to the search page with the current input value */
@@ -45,11 +60,21 @@ export function SearchFormPredictive(props: SearchFormPredictiveProps) {
   }
 
   /** Fetch search results based on the input value */
-  function fetchResults(event: React.ChangeEvent<HTMLInputElement>) {
+  function fetchResults(search: string) {
     fetcher.submit(
-      { q: event.target.value || '', limit: 5, predictive: true },
+      { q: search, limit: 6, predictive: true },
       { method: 'GET', action: SEARCH_ENDPOINT },
     );
+  }
+
+  /** Utility that resets the search input and closes the search aside */
+  function closeSearch() {
+    if (inputRef.current) {
+      inputRef.current.blur();
+    }
+    aside.close();
+    setSearch('');
+    fetchResults('');
   }
 
   // Focus the input on mount
@@ -57,13 +82,15 @@ export function SearchFormPredictive(props: SearchFormPredictiveProps) {
     inputRef.current?.focus();
   }, []);
 
-  if (typeof children !== 'function') {
-    return null;
-  }
-
-  return (
-    <fetcher.Form {...formProps} onSubmit={resetInput}>
-      {children({ inputRef, fetcher, fetchResults, goToSearch })}
-    </fetcher.Form>
-  );
+  return {
+    search,
+    setSearch,
+    fetcher,
+    inputRef,
+    goToSearch,
+    closeSearch,
+    fetchResults,
+    handleFormSubmit,
+    data: { items, total },
+  };
 }

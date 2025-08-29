@@ -1,4 +1,4 @@
-import { DetailedHTMLProps, HTMLAttributes, useId } from 'react';
+import { DetailedHTMLProps, HTMLAttributes, useEffect, useId, useState } from 'react';
 import { Link } from 'react-router';
 
 import { Image, Money } from '@shopify/hydrogen';
@@ -8,11 +8,10 @@ import { CoffeeIcon, SearchIcon } from 'lucide-react';
 import { urlWithTrackingParams } from '~/lib/search';
 
 import { Aside } from './Aside';
-import { SearchFormPredictive } from './SearchFormPredictive';
 import {
   PartialPredictiveSearchResult,
-  SearchResultsPredictive,
-} from './SearchResultsPredictive';
+  usePredictiveSearch,
+} from './SearchFormPredictive';
 import { Button } from './ui/button';
 import {
   DrawerClose,
@@ -80,11 +79,16 @@ function SearchEmpty(props: { type: 'not-found' | 'idle' }) {
 }
 
 function SearchResultsSuggestedQueries(
-  props: PartialPredictiveSearchResult<'queries', never>,
+  props: PartialPredictiveSearchResult<
+    'queries',
+    'fetchResults' | 'setSearch' | 'search'
+  >,
 ) {
-  const { queries } = props;
+  const [selected, setSelected] = useState('');
+  const { queries, setSearch, fetchResults, search } = props;
 
-  if (!queries.length) return null;
+  const hide = selected === search;
+  if (!queries.length || hide) return null;
 
   return (
     <div className="flex flex-col gap-4">
@@ -100,6 +104,11 @@ function SearchResultsSuggestedQueries(
               variant="outline"
               size="sm"
               className="h-7 rounded-full border border-accent bg-accent/40 px-2 font-normal text-accent-foreground"
+              onClick={() => {
+                setSearch(suggestion.text);
+                setSelected(suggestion.text);
+                fetchResults(suggestion.text);
+              }}
             >
               <span dangerouslySetInnerHTML={{ __html: suggestion.styledText }} />
             </Button>
@@ -110,8 +119,10 @@ function SearchResultsSuggestedQueries(
   );
 }
 
-function SearchResultsProducts(props: PartialPredictiveSearchResult<'products'>) {
-  const { term, products, closeSearch: close } = props;
+function SearchResultsProducts(
+  props: PartialPredictiveSearchResult<'products', 'search' | 'closeSearch'>,
+) {
+  const { search, products, closeSearch } = props;
 
   if (!products.length) return null;
 
@@ -127,7 +138,7 @@ function SearchResultsProducts(props: PartialPredictiveSearchResult<'products'>)
           const url = urlWithTrackingParams({
             baseUrl: `/products/${product.handle}`,
             trackingParams: product.trackingParameters,
-            term: term.current,
+            term: search,
           });
 
           return (
@@ -136,7 +147,7 @@ function SearchResultsProducts(props: PartialPredictiveSearchResult<'products'>)
                 to={url}
                 prefetch="intent"
                 className="group flex min-h-max w-full rounded-md"
-                onClick={close}
+                onClick={closeSearch}
               >
                 <article
                   className={clsx(
@@ -181,10 +192,25 @@ function SearchResultsProducts(props: PartialPredictiveSearchResult<'products'>)
   );
 }
 
-type SearchDrawerProps = {};
-
-export function SearchDrawer(props: SearchDrawerProps) {
+export function SearchDrawer() {
   const serachInputId = useId();
+
+  const {
+    search,
+    setSearch,
+    fetcher,
+    inputRef,
+    fetchResults,
+    handleFormSubmit,
+    data: {
+      items: { products, queries },
+    },
+    closeSearch,
+  } = usePredictiveSearch();
+
+  const state = fetcher.state;
+  const isEmpty = products.length < 1;
+
   return (
     <Aside
       type="search"
@@ -196,19 +222,20 @@ export function SearchDrawer(props: SearchDrawerProps) {
             </Typography>
           </DrawerTitle>
           <DrawerDescription>Use this form to search our store</DrawerDescription>
-
-          <SearchFormPredictive className="flex gap-2 pt-4">
-            {({ fetchResults, inputRef }) => (
-              <Input
-                name="q"
-                ref={inputRef}
-                id={serachInputId}
-                onChange={fetchResults}
-                autoComplete="off"
-                placeholder="Find your coffee"
-              />
-            )}
-          </SearchFormPredictive>
+          <fetcher.Form onSubmit={handleFormSubmit} className="flex gap-2 pt-4">
+            <Input
+              name="q"
+              value={search}
+              ref={inputRef}
+              id={serachInputId}
+              autoComplete="off"
+              placeholder="Find your coffee"
+              onChange={e => {
+                setSearch(e.currentTarget.value);
+                fetchResults(e.currentTarget.value);
+              }}
+            />
+          </fetcher.Form>
         </DrawerHeader>
       }
       footer={
@@ -221,33 +248,32 @@ export function SearchDrawer(props: SearchDrawerProps) {
         </DrawerFooter>
       }
     >
-      <SearchResultsPredictive>
-        {({ items, total, term, state, closeSearch }) => {
-          const { articles, collections, pages, products, queries } = items;
+      {state === 'loading' && isEmpty && <SearchLoading />}
 
-          const isEmpty = products.length < 1;
+      {state === 'idle' && isEmpty && (
+        <SearchEmpty type={search ? 'not-found' : 'idle'} />
+      )}
 
-          if (state === 'loading' && isEmpty) return <SearchLoading />;
-
-          if (!total) return <SearchEmpty type="idle" />;
-
-          return (
-            <div
-              className={clsx(
-                'flex flex-col gap-8',
-                state === 'loading' && !isEmpty && 'pointer-events-none opacity-50',
-              )}
-            >
-              <SearchResultsSuggestedQueries queries={queries} />
-              <SearchResultsProducts
-                products={products}
-                term={term}
-                closeSearch={closeSearch}
-              />
-            </div>
-          );
-        }}
-      </SearchResultsPredictive>
+      {!isEmpty && (
+        <div
+          className={clsx(
+            'flex flex-col gap-8 transition-opacity',
+            state === 'loading' && !isEmpty && 'pointer-events-none opacity-50',
+          )}
+        >
+          <SearchResultsSuggestedQueries
+            search={search}
+            queries={queries}
+            setSearch={setSearch}
+            fetchResults={fetchResults}
+          />
+          <SearchResultsProducts
+            search={search}
+            products={products}
+            closeSearch={closeSearch}
+          />
+        </div>
+      )}
     </Aside>
   );
 }
