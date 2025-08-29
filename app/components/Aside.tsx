@@ -1,17 +1,6 @@
-import { type ReactNode, createContext, useContext, useEffect, useState } from 'react';
+import { type ReactNode, createContext, useContext, useState } from 'react';
 
-import { XIcon } from 'lucide-react';
-
-import { Button } from '~/components/ui/button';
-import {
-  Drawer,
-  DrawerClose,
-  DrawerContent,
-  DrawerDescription,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerTitle,
-} from '~/components/ui/drawer';
+import { Drawer, DrawerContent } from '~/components/ui/drawer';
 
 type AsideType = 'search' | 'cart' | 'mobile' | 'closed';
 
