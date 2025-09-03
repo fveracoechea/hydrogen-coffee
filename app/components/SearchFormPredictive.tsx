@@ -54,8 +54,7 @@ export function usePredictiveSearch() {
 
   /** Navigate to the search page with the current input value */
   function goToSearch() {
-    const term = inputRef?.current?.value;
-    navigate(SEARCH_ENDPOINT + (term ? `?q=${term}` : ''));
+    navigate(SEARCH_ENDPOINT + (search ? `?q=${search}` : ''));
     aside.close();
   }
 
@@ -76,11 +75,6 @@ export function usePredictiveSearch() {
     setSearch('');
     fetchResults('');
   }
-
-  // Focus the input on mount
-  useEffect(() => {
-    inputRef.current?.focus();
-  }, []);
 
   return {
     search,

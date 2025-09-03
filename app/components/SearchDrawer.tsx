@@ -203,6 +203,7 @@ export function SearchDrawer() {
     fetchResults,
     handleFormSubmit,
     data: {
+      total,
       items: { products, queries },
     },
     closeSearch,
@@ -221,7 +222,11 @@ export function SearchDrawer() {
               Start your coffee journey here
             </Typography>
           </DrawerTitle>
-          <DrawerDescription>Use this form to search our store</DrawerDescription>
+          {total < 1 ? (
+            <DrawerDescription>Use this form to search our store</DrawerDescription>
+          ) : (
+            <DrawerDescription>{total} Items matched your search</DrawerDescription>
+          )}
           <fetcher.Form onSubmit={handleFormSubmit} className="flex gap-2 pt-4">
             <Input
               name="q"
@@ -229,6 +234,8 @@ export function SearchDrawer() {
               ref={inputRef}
               id={serachInputId}
               autoComplete="off"
+              // eslint-disable-next-line jsx-a11y/no-autofocus
+              autoFocus
               placeholder="Find your coffee"
               onChange={e => {
                 setSearch(e.currentTarget.value);
