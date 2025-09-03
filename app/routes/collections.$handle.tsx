@@ -71,7 +71,7 @@ export default function Collection() {
   const { collection } = useLoaderData<typeof loader>();
 
   return (
-    <div className="flex flex-col gap-8 p-8">
+    <div className="flex flex-col p-8">
       <div>
         <Typography variant="h4" as="h2">
           {collection.title}
