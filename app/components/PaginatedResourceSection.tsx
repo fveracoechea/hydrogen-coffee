@@ -17,19 +17,25 @@ export function PaginatedResourceSection<NodesType>({
   return (
     <Pagination connection={connection}>
       {({ nodes, isLoading, PreviousLink, NextLink }) => {
-        const resourcesMarkup = nodes.map((node, index) => children({ node, index }));
+        const resourcesMarkup = nodes.map((node, index) =>
+          children({ node, index }),
+        ) as React.ReactNode;
 
         return (
           <div>
-            <PreviousLink>
-              {isLoading ? 'Loading...' : <span>↑ Load previous</span>}
-            </PreviousLink>
+            <div className="flex justify-center p-4">
+              <PreviousLink>
+                {isLoading ? 'Loading...' : <span>↑ Load previous</span>}
+              </PreviousLink>
+            </div>
             {resourcesClassName ? (
               <div className={resourcesClassName}>{resourcesMarkup}</div>
             ) : (
               resourcesMarkup
             )}
-            <NextLink>{isLoading ? 'Loading...' : <span>Load more ↓</span>}</NextLink>
+            <div className="flex justify-center p-4">
+              <NextLink>{isLoading ? 'Loading...' : <span>Load more ↓</span>}</NextLink>
+            </div>
           </div>
         );
       }}

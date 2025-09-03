@@ -5,6 +5,7 @@ import { type LoaderFunctionArgs, redirect } from '@shopify/remix-oxygen';
 
 import { PaginatedResourceSection } from '~/components/PaginatedResourceSection';
 import { PRODUCT_ITEM_FRAGMENT, ProductItem } from '~/components/ProductItem';
+import { Typography } from '~/components/ui/typography';
 import { redirectIfHandleIsLocalized } from '~/lib/redirect';
 
 export const meta: MetaFunction<typeof loader> = ({ data }) => {
@@ -70,9 +71,16 @@ export default function Collection() {
   const { collection } = useLoaderData<typeof loader>();
 
   return (
-    <div className="collection">
-      <h1>{collection.title}</h1>
-      <p className="collection-description">{collection.description}</p>
+    <div className="flex flex-col gap-8 p-8">
+      <div>
+        <Typography variant="h4" as="h2">
+          {collection.title}
+        </Typography>
+        <Typography variant="base" as="p">
+          {collection.description}
+        </Typography>
+      </div>
+
       <PaginatedResourceSection
         connection={collection.products}
         resourcesClassName="products-grid"
@@ -85,6 +93,7 @@ export default function Collection() {
           />
         )}
       </PaginatedResourceSection>
+
       <Analytics.CollectionView
         data={{
           collection: {

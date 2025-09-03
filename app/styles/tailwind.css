@@ -134,6 +134,8 @@
   --sidebar-accent-foreground: oklch(0.32 0.06 30);
   --sidebar-border: oklch(0.82 0.05 200);
   --sidebar-ring: oklch(0.54 0.08 35);
+
+  --grid-item-width: 358px;
 }
 
 /*---break---
@@ -204,6 +206,14 @@
 @layer utilities {
   mark {
     @apply bg-transparent font-bold text-foreground;
+  }
+
+  .grid-auto-fill {
+    @apply grid gap-6;
+    grid-template-columns: repeat(
+      auto-fill,
+      minmax(min(var(--grid-item-width), 100%), 1fr)
+    );
   }
 
   .text-dark-brown {
