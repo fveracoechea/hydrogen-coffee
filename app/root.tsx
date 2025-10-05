@@ -15,7 +15,6 @@ import { type LoaderFunctionArgs } from '@shopify/remix-oxygen';
 
 import favicon from '~/assets/favicon.svg';
 import { FOOTER_QUERY, HEADER_QUERY } from '~/lib/fragments';
-import appStyles from '~/styles/app.css?url';
 
 import { PageLayout } from './components/PageLayout';
 import tailwindCss from './styles/tailwind.css?url';
@@ -154,11 +153,10 @@ export function Layout({ children }: { children?: React.ReactNode }) {
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1" />
         <link rel="stylesheet" href={tailwindCss}></link>
-        <link rel="stylesheet" href={appStyles}></link>
         <Meta />
         <Links />
       </head>
-      <body>
+      <body className="flex min-h-dvh flex-col">
         {data ? (
           <Analytics.Provider cart={data.cart} shop={data.shop} consent={data.consent}>
             <PageLayout {...data}>{children}</PageLayout>

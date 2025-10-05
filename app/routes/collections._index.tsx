@@ -5,6 +5,7 @@ import { type LoaderFunctionArgs } from '@shopify/remix-oxygen';
 import type { CollectionFragment } from 'storefrontapi.generated';
 
 import { PaginatedResourceSection } from '~/components/PaginatedResourceSection';
+import { Typography } from '~/components/ui/typography';
 
 export async function loader(args: LoaderFunctionArgs) {
   // Start fetching non-critical data without blocking time to first byte
@@ -48,12 +49,14 @@ export default function Collections() {
   const { collections } = useLoaderData<typeof loader>();
 
   return (
-    <div className="collections">
-      <h1>Collections</h1>
-      <PaginatedResourceSection
-        connection={collections}
-        resourcesClassName="collections-grid"
-      >
+    <div className="flex flex-col p-8">
+      <Typography variant="h4" as="h2">
+        Collections
+      </Typography>
+      <Typography variant="base" as="p">
+        Start your coffee journey here, browse our curated collections of premium coffee.
+      </Typography>
+      <PaginatedResourceSection connection={collections}>
         {({ node: collection, index }) => (
           <CollectionItem key={collection.id} collection={collection} index={index} />
         )}

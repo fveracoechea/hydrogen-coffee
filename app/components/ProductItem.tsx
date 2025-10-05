@@ -13,7 +13,6 @@ import { useAside } from './Aside';
 import { Button } from './ui/button';
 
 export const PRODUCT_ITEM_FRAGMENT = `#graphql
-
   fragment MoneyProductItem on MoneyV2 {
     amount
     currencyCode

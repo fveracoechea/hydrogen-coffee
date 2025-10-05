@@ -5,6 +5,7 @@ import { type LoaderFunctionArgs } from '@shopify/remix-oxygen';
 import type { ArticleItemFragment } from 'storefrontapi.generated';
 
 import { PaginatedResourceSection } from '~/components/PaginatedResourceSection';
+import { Typography } from '~/components/ui/typography';
 import { redirectIfHandleIsLocalized } from '~/lib/redirect';
 
 export const meta: MetaFunction<typeof loader> = ({ data }) => {
@@ -66,20 +67,39 @@ export default function Blog() {
   const { blog } = useLoaderData<typeof loader>();
   const { articles } = blog;
 
+  // <div className="blog">
+  //   <h1>{blog.title}</h1>
+  //   <div className="blog-grid">
+  //     <PaginatedResourceSection connection={articles}>
+  //       {({ node: article, index }) => (
+  //         <ArticleItem
+  //           article={article}
+  //           key={article.id}
+  //           loading={index < 2 ? 'eager' : 'lazy'}
+  //         />
+  //       )}
+  //     </PaginatedResourceSection>
+  //   </div>
+  // </div>
   return (
-    <div className="blog">
-      <h1>{blog.title}</h1>
-      <div className="blog-grid">
-        <PaginatedResourceSection connection={articles}>
-          {({ node: article, index }) => (
-            <ArticleItem
-              article={article}
-              key={article.id}
-              loading={index < 2 ? 'eager' : 'lazy'}
-            />
-          )}
-        </PaginatedResourceSection>
-      </div>
+    <div className="flex flex-col p-8">
+      <Typography variant="h4" as="h2">
+        {blog.seo?.title || blog.title}
+      </Typography>
+      {blog.seo?.description && (
+        <Typography variant="base" as="p">
+          {blog.seo.description}
+        </Typography>
+      )}
+      <PaginatedResourceSection connection={articles}>
+        {({ node: article, index }) => (
+          <ArticleItem
+            key={article.id}
+            article={article}
+            loading={index < 2 ? 'eager' : 'lazy'}
+          />
+        )}
+      </PaginatedResourceSection>
     </div>
   );
 }

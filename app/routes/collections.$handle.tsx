@@ -81,10 +81,7 @@ export default function Collection() {
         </Typography>
       </div>
 
-      <PaginatedResourceSection
-        connection={collection.products}
-        resourcesClassName="products-grid"
-      >
+      <PaginatedResourceSection connection={collection.products}>
         {({ node: product, index }) => (
           <ProductItem
             key={product.id}

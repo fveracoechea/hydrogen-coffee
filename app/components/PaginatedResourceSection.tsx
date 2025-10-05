@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { ReactNode } from 'react';
 
 import { Pagination } from '@shopify/hydrogen';
 
@@ -13,18 +14,14 @@ export function PaginatedResourceSection<NodesType>({
   resourcesClassName,
 }: {
   connection: React.ComponentProps<typeof Pagination<NodesType>>['connection'];
-  children: React.FunctionComponent<{ node: NodesType; index: number }>;
+  children: (args: { node: NodesType; index: number }) => ReactNode;
   resourcesClassName?: string;
 }) {
   return (
     <Pagination connection={connection}>
       {({ nodes, isLoading, PreviousLink, NextLink }) => {
-        const resourcesMarkup = nodes.map((node, index) =>
-          children({ node, index }),
-        ) as React.ReactNode;
-
         return (
-          <div>
+          <>
             <div className="flex justify-end p-4">
               <Button asChild variant="secondary">
                 <PreviousLink>
@@ -32,17 +29,15 @@ export function PaginatedResourceSection<NodesType>({
                 </PreviousLink>
               </Button>
             </div>
-            {resourcesClassName ? (
-              <div className={resourcesClassName}>{resourcesMarkup}</div>
-            ) : (
-              resourcesMarkup
-            )}
+            <div className="grid-auto-fill">
+              {nodes.map((node, index) => children({ node, index }))}
+            </div>
             <div className="flex justify-end p-4">
               <Button asChild variant="secondary">
                 <NextLink>{isLoading ? 'Loading...' : <span>Load more ↓</span>}</NextLink>
               </Button>
             </div>
-          </div>
+          </>
         );
       }}
     </Pagination>
